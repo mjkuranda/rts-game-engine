@@ -1,6 +1,7 @@
 class Human {
-    constructor(private readonly name: string,
-                private readonly age: number) {
+    constructor(
+        private readonly name: string,
+        private readonly age: number) {
         this.name = name;
         this.age = age;
     }
