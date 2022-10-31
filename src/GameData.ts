@@ -2,6 +2,7 @@ import Agent from "./classes/Agent";
 import City from "./classes/City";
 import Human from "./classes/entities/Human";
 
+/* Key: `String.fromCharCode(size) + 32`, value: Human object */
 export const people: Map<string, Human> = new Map();
 
 /* Key: `x:y`, value: City array */

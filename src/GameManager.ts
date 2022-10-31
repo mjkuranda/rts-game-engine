@@ -8,7 +8,7 @@ import { people, cities, agents } from './GameData';
 class GameManager {
     public settle(name: string, agentId: string | null, v: Vector2): void {
         if (agentId === null) {
-            console.error('Error: Nullish agent object');
+            console.error('Error: Nullish agent object. Unable to settle a city');
             
             return;
         }
@@ -22,7 +22,7 @@ class GameManager {
     
     public born(name: string, age: number): string {
         const child = new Human(name, age);
-        const childId = String.fromCharCode(people.size);
+        const childId = String.fromCharCode(people.size + 32);
 
         people.set(childId, child);
         
@@ -36,7 +36,7 @@ class GameManager {
     
     public setAgent(v: Vector2, humanIds: string[]): string {
         const agent = new Agent(v, humanIds);
-        const agentId = String.fromCharCode(agents.size);
+        const agentId = String.fromCharCode(agents.size + 32);
         agents.set(agentId, agent);
         
         return agentId;

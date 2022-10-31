@@ -6,7 +6,7 @@ class Game {
     /* An age in the game */
     private age: number;
     
-    /* A map of the game */
+    /* A manager of the game */
     private manager: GameManager;
     
     constructor() {

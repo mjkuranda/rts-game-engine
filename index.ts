@@ -14,10 +14,10 @@ manager.setAgent(new Vector2(1, 5), [
 ]);
 manager.born('hum3', 0);
 
-manager.settle('x', '\x00', new Vector2(1, 5));
+manager.settle('x', ' ', new Vector2(1, 5));
 manager.settle('y', null, new Vector2(1, 0));
 
-manager.marriage('\x00', '\x01');
+manager.marriage(' ', '!');
 //////////////////////
 
 const game = new Game();
