@@ -19,6 +19,10 @@ class Human {
         return year - this.age!;
     }
     
+    public getSpouseId(): string | null {
+        return this.spouseId;
+    }
+    
     public marriage(humanId: string): void {
         if (!people.get(humanId)) {
             console.error('There is no such human.');

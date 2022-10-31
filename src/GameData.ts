@@ -1,9 +1,14 @@
+import Agent from "./classes/Agent";
+import City from "./classes/City";
 import Human from "./classes/entities/Human";
 
-const h1 = new Human('hum1');
-const h2 = new Human('hum2');
+export const people: Map<string, Human> = new Map();
 
-export const people: Map<string, Human> = new Map([
-    ['1', h1],
-    ['2', h2]
-]);
+/* Key: `x:y`, value: City array */
+export const cities: Map<string, City> = new Map();
+
+/* Key: `x:y`, value: Agent object */
+export const agents: Map<string, Agent> = new Map();
+    
+/* Two-dimensional array */
+export const provinces: number[][] = [];

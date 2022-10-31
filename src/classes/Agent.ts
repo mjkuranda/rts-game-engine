@@ -10,8 +10,8 @@ class Agent implements IAgent {
     
     private readonly v: Vector2;
     
-    constructor(v: Vector2) {
-        this.entitiesIds = [];
+    constructor(v: Vector2, entitiesId?: string[]) {
+        this.entitiesIds = entitiesId ?? [];
         this.v = v;
     }
     
