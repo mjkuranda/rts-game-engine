@@ -3,6 +3,8 @@
 ## [1.3.0] 2022-11-05
 ### Added
 - [@mjkuranda]: Added changelog.
+- [@mjkuranda]: Added game object types.
+- [@mjkuranda]: Handling of human death.
 
 ## [1.2.0] 2022-11-05
 ### Changed

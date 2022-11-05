@@ -51,4 +51,8 @@ export default class Human {
         
         this.spouseId = humanId;
     }
+    
+    public dissolveMarriage(): void {
+        this.spouseId = null;
+    }
 }

@@ -2,6 +2,8 @@ import GameManager from "./GameManager";
 
 import { people, cities, agents } from './GameData';
 
+// TODO: Printing game objects i. e.: Human, Agent, City...
+
 export default class Game {
     /* An age in the game */
     private age: number;

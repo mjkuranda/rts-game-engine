@@ -1,6 +1,6 @@
 import Agent, { AgentId, AgentType } from "./classes/Agent";
 import City from "./classes/City";
-import Human, { SpouseId } from "./classes/entities/Human";
+import Human, { HumanId, SpouseId } from "./classes/entities/Human";
 import Vector2 from "./classes/Vector2";
 
 import { people, cities, agents } from './GameData';
@@ -26,6 +26,18 @@ export default class GameManager {
     public marriage(spouseId1: SpouseId, spouseId2: SpouseId): void {
         people.get(spouseId1)?.marriage(spouseId2);
         people.get(spouseId2)?.marriage(spouseId1);
+    }
+    
+    public handleDeath(id: HumanId): void {
+        if (people.get(id) === undefined) return;
+        console.info(`Unfortunately, ${people.get(id)} died.`);
+        
+        const spouseId = people.get(id)!.getSpouseId();
+        if (spouseId) {
+            people.get(spouseId)!.dissolveMarriage();   
+        }
+        
+        people.delete(id);
     }
     
     public setAgent(type: AgentType, v: Vector2, humanIds: string[]): string {
