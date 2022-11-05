@@ -1,5 +1,9 @@
 import { people } from '../../GameData';
 
+export type HumanId = string;
+
+export type SpouseId = string;
+
 /*
     Every instance of this object needs to assign about 42B.
     It consist of:
@@ -9,7 +13,7 @@ import { people } from '../../GameData';
 */
 export default class Human {
     // Human id
-    private spouseId: string | null;
+    private spouseId: SpouseId | null;
     
     // TODO: Gender: male or female. String id consist the oldest byte as a gender:
     // TODO: Gender: Gxxxxxxxxxxxxxxxx, G - 0 male, 1 female, x as ids.
@@ -34,7 +38,7 @@ export default class Human {
         return year - this.age!;
     }
     
-    public getSpouseId(): string | null {
+    public getSpouseId(): SpouseId | null {
         return this.spouseId;
     }
     
