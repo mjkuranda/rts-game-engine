@@ -4,6 +4,11 @@ export type HumanId = string;
 
 export type SpouseId = string;
 
+export enum Gender {
+    MALE = "Male",
+    FEMALE = "Female"
+};
+
 /*
     Every instance of this object needs to assign about 42B.
     It consist of:
@@ -15,17 +20,16 @@ export default class Human {
     // Human id
     private spouseId: SpouseId | null;
     
-    // TODO: Gender: male or female. String id consist the oldest byte as a gender:
-    // TODO: Gender: Gxxxxxxxxxxxxxxxx, G - 0 male, 1 female, x as ids.
-    
-    // TODO: If someone dies, then his/her spouse becoming a single and spouse should be deleted
-    // TODO: from PEOPLE object.
+    // Gender (true - male, false - female)
+    private readonly gender: boolean;
     
     constructor(
         private readonly name: string,
-        private readonly age?: number) {
+        private readonly age?: number,
+        isMale?: boolean) {
         this.name = name.slice(0, 16);
         this.age = age ?? 0;
+        this.gender = isMale ?? true;
         this.spouseId = null;
     }
     
@@ -36,6 +40,14 @@ export default class Human {
     // NOTE: Died human is deleted and there is no need to calculate his/her age
     public getAge(year: number): number {
         return year - this.age!;
+    }
+    
+    public getGender(): string {
+        return (this.gender) ? Gender.MALE : Gender.FEMALE;
+    }
+    
+    public isMale(): boolean {
+        return true;
     }
     
     public getSpouseId(): SpouseId | null {

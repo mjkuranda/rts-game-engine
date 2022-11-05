@@ -5,6 +5,7 @@
 - [@mjkuranda]: Added changelog.
 - [@mjkuranda]: Added game object types.
 - [@mjkuranda]: Handling of human death.
+- [@mjkuranda]: Handling genders, marriages and their dissolving.
 
 ## [1.2.0] 2022-11-05
 ### Changed

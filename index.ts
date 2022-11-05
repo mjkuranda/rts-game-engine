@@ -11,7 +11,7 @@ const manager = new GameManager();
 
 manager.setAgent(AgentTypes.TRIBE, new Vector2(1, 5), [
     manager.born('hum1', 0),
-    manager.born('hum2', 0) 
+    manager.born('hum2', 0, false) 
 ]);
 manager.born('hum3', 0);
 manager.settle('x', ' ', new Vector2(1, 5));
