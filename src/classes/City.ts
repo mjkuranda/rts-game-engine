@@ -7,7 +7,7 @@ import GameManager from '../GameManager';
     name: (max 16 chars), then: 32B maximally
     inhabitants: (each 2B) and max. 64? them, then 128B.
 */
-class City {
+export default class City {
     constructor(private readonly name: string,
                 private readonly inhabitants: string[]) {
         this.name = name.slice(0, 16);
@@ -44,5 +44,3 @@ class City {
         this.inhabitants.push(humanId);
     }
 }
-
-export default City;

@@ -5,7 +5,7 @@ import Vector2 from "./classes/Vector2";
 
 import { people, cities, agents } from './GameData';
 
-class GameManager {
+export default class GameManager {
     public settle(name: string, agentId: string | null, v: Vector2): void {
         if (agentId === null) {
             console.error('Error: Nullish agent object. Unable to settle a city');
@@ -58,5 +58,3 @@ class GameManager {
         console.info('All cities updated');
     }
 }
-
-export default GameManager;

@@ -2,7 +2,7 @@ import GameManager from "./GameManager";
 
 import { people, cities, agents } from './GameData';
 
-class Game {
+export default class Game {
     /* An age in the game */
     private age: number;
     
@@ -34,5 +34,3 @@ class Game {
         console.info('Agents status:', agents);
     }
 }
-
-export default Game;

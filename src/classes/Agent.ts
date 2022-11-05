@@ -6,12 +6,12 @@ interface IAgent {
 }
 
 /*
-    Every instance of this object needs to assign about 80B.
+    Every instance of this object needs to assign about 66B.
     It consist of:
-    coords: 16B
+    coords: 2B
     entitiesIds: (each 2B) and max. 32? them, then 64B.
 */
-class Agent implements IAgent {
+export default class Agent implements IAgent {
     private entitiesIds: string[];
     
     private readonly v: Vector2;
@@ -31,5 +31,3 @@ class Agent implements IAgent {
         return this.entitiesIds;
     }
 }
-
-export default Agent;

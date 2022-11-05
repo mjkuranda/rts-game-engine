@@ -1,6 +1,6 @@
 {
   "name": "rts-game-engine",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Library for game engine",
   "main": "index.js",
   "scripts": {

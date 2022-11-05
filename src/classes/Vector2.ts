@@ -1,16 +1,15 @@
-class Vector2 {
+export default class Vector2 {
+    private coords: string;
+    
     constructor(private readonly x: number, private readonly y: number) {
-        this.x = x;
-        this.y = y;
+        this.coords = String.fromCodePoint(x) + String.fromCodePoint(y);
     }
     
     public getX(): number {
-        return this.x;
+        return this.coords.codePointAt(0) ?? -1;
     }
     
     public getY(): number {
-        return this.y;
+        return this.coords.codePointAt(1) ?? -1;
     }
 }
-
-export default Vector2;

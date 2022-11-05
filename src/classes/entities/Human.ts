@@ -7,7 +7,7 @@ import { people } from '../../GameData';
     age: 8B
     spouseId: 2B
 */
-class Human {
+export default class Human {
     // Human id
     private spouseId: string | null;
     
@@ -48,5 +48,3 @@ class Human {
         this.spouseId = humanId;
     }
 }
-
-export default Human;
