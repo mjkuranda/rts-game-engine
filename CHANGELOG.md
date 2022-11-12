@@ -1,5 +1,9 @@
 # RTS Game Engine
 
+## [1.4.0] 2022-11-12
+### Added
+- [@mjkuranda]: Added skills and their types: `fighting`, `mechanics`, `engineering`, `science`.
+
 ## [1.3.0] 2022-11-05
 ### Added
 - [@mjkuranda]: Added changelog.

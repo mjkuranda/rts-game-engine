@@ -14,6 +14,7 @@ export default class GameManager {
         console.info(`Settled new city: ${city.getName()}`);
     }
     
+    // TODO: childId should start with '\x00' code as 0.
     public born(name: string, age: number, isMale?: boolean): string {
         const child = new Human(name, age, isMale);
         const childId = String.fromCharCode(people.size + 32);
@@ -26,16 +27,18 @@ export default class GameManager {
     public marriage(spouseId1: SpouseId, spouseId2: SpouseId): void {
         if (!people.get(spouseId1) || !people.get(spouseId2)) {
             console.error("Error: Marriage failed.");
+            
             return;
         }
         
         if (people.get(spouseId1)!.getGender() === people.get(spouseId2)!.getGender()) {
             console.error("Error: Nupturients has the same gender!");
+            
             return;
         }
         
-        people.get(spouseId1)?.marriage(spouseId2);
-        people.get(spouseId2)?.marriage(spouseId1);
+        people.get(spouseId1)!.marriage(spouseId2);
+        people.get(spouseId2)!.marriage(spouseId1);
     }
     
     public handleDeath(id: HumanId): void {
@@ -49,6 +52,8 @@ export default class GameManager {
         
         people.delete(id);
     }
+    
+    // TODO: Add new method: gainSkill
     
     public setAgent(type: AgentType, v: Vector2, humanIds: string[]): string {
         const agent = new Agent(type, v, humanIds);
