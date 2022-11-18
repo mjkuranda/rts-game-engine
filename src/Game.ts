@@ -4,6 +4,9 @@ import { people, cities, agents } from './GameData';
 
 // TODO: Printing game objects i. e.: Human, Agent, City...
 
+// TODO: Abstract database layer !
+// TODO: Increase quality and amount of the tests
+
 export default class Game {
     /* An age in the game */
     private age: number;
