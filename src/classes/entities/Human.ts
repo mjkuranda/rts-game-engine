@@ -103,12 +103,16 @@ export default class Human {
     
     public logSkills(): void {
         const skills = {
-            [Skills.FIGHTING]: (this.skills.charCodeAt(0) & SkillsDetails[Skills.FIGHTING].mask) >> SkillsDetails[Skills.FIGHTING].offset,
-            [Skills.MECHANICS]: (this.skills.charCodeAt(0) & SkillsDetails[Skills.MECHANICS].mask) >> SkillsDetails[Skills.MECHANICS].offset,
-            [Skills.ENGINEERING]: (this.skills.charCodeAt(0) & SkillsDetails[Skills.ENGINEERING].mask) >> SkillsDetails[Skills.ENGINEERING].offset,
-            [Skills.SCIENCE]: (this.skills.charCodeAt(0) & SkillsDetails[Skills.SCIENCE].mask) >> SkillsDetails[Skills.SCIENCE].offset
+            [Skills.FIGHTING]: this.getSkill(Skills.FIGHTING),
+            [Skills.MECHANICS]: this.getSkill(Skills.MECHANICS),
+            [Skills.ENGINEERING]: this.getSkill(Skills.ENGINEERING),
+            [Skills.SCIENCE]: this.getSkill(Skills.SCIENCE)
         };
         
         console.table(skills);
+    }
+    
+    public getSkill(skill: Skills): number {
+        return (this.skills.charCodeAt(0) & SkillsDetails[skill].mask) >> SkillsDetails[skill].offset;
     }
 }

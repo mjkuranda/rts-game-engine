@@ -1,5 +1,10 @@
 # RTS Game Engine
 
+## [1.5.0] 2022-11-18
+### Added
+- [@mjkuranda]: Added handling tests in the library.
+- [@mjkuranda]: Added simple tests included in index.ts.
+
 ## [1.4.0] 2022-11-12
 ### Added
 - [@mjkuranda]: Added skills and their types: `fighting`, `mechanics`, `engineering`, `science`.

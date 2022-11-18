@@ -20,7 +20,7 @@ export default class City {
             if (!people.get(humanId)?.getSpouseId()) continue;
             
             // Try to born a new inhabitant
-            this.inhabitants.push(manager.born('child', age));
+            this.inhabitants.push(manager.born('child', age).id);
         }
         
         console.info(`${this.name} city was updated!`);

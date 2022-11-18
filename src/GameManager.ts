@@ -5,23 +5,36 @@ import Vector2 from "./classes/Vector2";
 
 import { people, cities, agents } from './GameData';
 
+interface GameObject {
+    id: string;
+    result: City | Human | Agent;  
+};
+
 export default class GameManager {
-    public settle(name: string, agentId: AgentId, v: Vector2): void {
+    public settle(name: string, agentId: AgentId, v: Vector2): GameObject {
         const city = new City(name, agents.get(agentId)?.getEntitiesIds() ?? []);
-        cities.set(`${v.getX()}:${v.getY()}`, city);
+        const id = `${v.getX()}:${v.getY()}`;
+        cities.set(id, city);
         agents.delete(agentId);
         
         console.info(`Settled new city: ${city.getName()}`);
+        
+        return {
+            id,
+            result: city
+        };
     }
     
-    // TODO: childId should start with '\x00' code as 0.
-    public born(name: string, age: number, isMale?: boolean): string {
+    public born(name: string, age: number, isMale?: boolean): GameObject {
         const child = new Human(name, age, isMale);
-        const childId = String.fromCharCode(people.size + 32);
-
+        const childId = String.fromCharCode(people.size);
+        
         people.set(childId, child);
         
-        return childId;
+        return {
+            id: childId,
+            result: child
+        };
     }
     
     public marriage(spouseId1: SpouseId, spouseId2: SpouseId): void {
@@ -55,12 +68,15 @@ export default class GameManager {
     
     // TODO: Add new method: gainSkill
     
-    public setAgent(type: AgentType, v: Vector2, humanIds: string[]): string {
+    public setAgent(type: AgentType, v: Vector2, humanIds: string[]): GameObject {
         const agent = new Agent(type, v, humanIds);
-        const agentId = String.fromCharCode(agents.size + 32);
+        const agentId = String.fromCharCode(agents.size);
         agents.set(agentId, agent);
         
-        return agentId;
+        return {
+            id: agentId,
+            result: agent
+        };
     }
     
     public getAgent(agentId: AgentId): Agent | null {
