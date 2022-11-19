@@ -1,3 +1,5 @@
+type DatabaseType = "inMemory";
+
 interface IDatabaseConfig {
     name: string,
     keys: { peopleLastKey: string, citiesLastKey: string, agentsLastKey: string }
@@ -5,7 +7,7 @@ interface IDatabaseConfig {
 
 export interface IGameConfig {
     age: number,
-    database: string,
+    database: DatabaseType,
     databases: {
         inMemory: IDatabaseConfig
     };
@@ -18,7 +20,7 @@ export interface IGameConfig {
 */
 const GameConfig: IGameConfig = {
     age: 0,                             // Age in the game
-    database: "InMemory",               // Main database
+    database: "inMemory",               // Main database
     databases: {                        // Configurations of the all possible databases
         inMemory: {
             name: "InMemoryDatabase",
@@ -29,6 +31,7 @@ const GameConfig: IGameConfig = {
             }
         }
     }
+    // TODO: setNewKey(key: string, database?: DatabaseType): void {};
 };
 
 export default GameConfig;

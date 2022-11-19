@@ -2,6 +2,8 @@ import GameManager from "./GameManager";
 import GameConfig, { IGameConfig } from "./GameConfig";
 
 import { people, cities, agents } from './GameData';
+import Database from "./databases/Database";
+import InMemoryDatabase from "./databases/InMemoryDatabase";
 
 // TODO: Printing game objects i. e.: Human, Agent, City...
 
@@ -14,9 +16,13 @@ export default class Game {
     /* A manager of the game */
     private manager: GameManager;
     
-    constructor() {
+    /* Main database using in the game */
+    private database: Database;
+    
+    constructor(database?: Database) {
         this.config = GameConfig;
         this.manager = new GameManager();
+        this.database = database ?? new InMemoryDatabase(this.config);
     }
     
     public getConfig() {
@@ -31,6 +37,10 @@ export default class Game {
         return this.manager;
     }
     
+    public getDatabase(): Database {
+        return this.database;
+    }
+    
     public nextAge(): void {
         console.info(`New age: ${++this.config.age}`);
         console.info(`The current season is ${this.config.age % 4}`);
@@ -38,8 +48,11 @@ export default class Game {
     }
     
     public status(): void {
-        console.info('People status:', people);
-        console.info('Cities status:', cities);
-        console.info('Agents status:', agents);
+        console.info(`Game year ${this.config.age}, season ${this.config.age % 4}.`);
+        this.database.status();
+        
+        // console.info('People status:', people);
+        // console.info('Cities status:', cities);
+        // console.info('Agents status:', agents);
     }
 }
