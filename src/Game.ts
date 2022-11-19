@@ -1,26 +1,30 @@
 import GameManager from "./GameManager";
+import GameConfig, { IGameConfig } from "./GameConfig";
 
 import { people, cities, agents } from './GameData';
 
 // TODO: Printing game objects i. e.: Human, Agent, City...
 
-// TODO: Abstract database layer !
 // TODO: Increase quality and amount of the tests
 
 export default class Game {
-    /* An age in the game */
-    private age: number;
+    /* Configuration of the game */
+    private config: IGameConfig;
     
     /* A manager of the game */
     private manager: GameManager;
     
     constructor() {
-        this.age = 0;
+        this.config = GameConfig;
         this.manager = new GameManager();
     }
     
+    public getConfig() {
+        return this.config;
+    }
+    
     public getAge(): number {
-        return this.age;
+        return this.config.age;
     }
     
     public getManager(): GameManager {
@@ -28,9 +32,9 @@ export default class Game {
     }
     
     public nextAge(): void {
-        console.info(`New age: ${++this.age}`);
-        console.info(`The current season is ${this.age % 4}`);
-        this.manager.nextAge(this.age);
+        console.info(`New age: ${++this.config.age}`);
+        console.info(`The current season is ${this.config.age % 4}`);
+        this.manager.nextAge(this.config.age);
     }
     
     public status(): void {
