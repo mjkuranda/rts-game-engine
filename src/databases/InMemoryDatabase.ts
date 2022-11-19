@@ -1,7 +1,7 @@
 import Agent from "../classes/Agent";
 import City from "../classes/City";
 import Human from "../classes/entities/Human";
-import Database, { DataTables } from "./Database"
+import Database from "./Database";
 
 export default class InMemoryDatabase implements Database {
     /* Key: `String.fromCharCode(size)`, value: Human object */
@@ -23,23 +23,26 @@ export default class InMemoryDatabase implements Database {
         this.provinces = [];
     }
     
-    public set(table: DataTables, obj: Human | City | Agent): void {
-        if (table === DataTables.PEOPLE) {
-            this[table].set('x', (<any>window)["Human"]);   
+    public set<T>(object: T): void {
+        if (object instanceof Human) {
+            this.people.set('x', object);
+            
+            return;
         }
+        
+        if (object instanceof City) {
+            this.cities.set('x', object);
+            
+            return;
+        }
+        
+        if (object instanceof Agent) {
+            this.agents.set('x', object);
+            
+            return;
+        }
+        
+        console.error('Error: Invalid object type.');
     }
-    
-    // public set<T>(table: DataTables, object: T): void {
-    //     if (table === DataTables.PEOPLE) {
-    //         this.people.set('x', object);
-    //     }
-    // }
-    
-    // delete<K>(table: DataTables, key: K): void {
-    //     throw new Error("Method not implemented.");
-    // }
-    // get<K>(table: DataTables, key: K): DataObject {
-    //     throw new Error("Method not implemented.");
-    // }
     
 }
