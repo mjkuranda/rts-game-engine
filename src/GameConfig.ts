@@ -1,37 +1,56 @@
 type DatabaseType = "inMemory";
 
 interface IDatabaseConfig {
-    name: string,
+    name: string;
     keys: { peopleLastKey: string, citiesLastKey: string, agentsLastKey: string }
 };
 
 export interface IGameConfig {
-    age: number,
-    database: DatabaseType,
+    age: number;
+    database: DatabaseType;
     databases: {
         inMemory: IDatabaseConfig
     };
+    setNewKey: (key: string, table: TableType, database?: DatabaseType) => void;
+    getLastKey: (table: TableType, database?: DatabaseType) => string;
 };
 
+type TableType = "people" | "cities" | "agents";
+
 /*
-    You can explicitly refer to this variable
-    as GameConfig, but we recommend you to refer to this confugration,
-    using Game instance i. e. `game.getConfig()`.
+    GameConfig includes basic configuration,
+    i.e. current using database, age in the game,
+    and also handles keys in the tables - set and get operation.
 */
-const GameConfig: IGameConfig = {
-    age: 0,                             // Age in the game
-    database: "inMemory",               // Main database
-    databases: {                        // Configurations of the all possible databases
-        inMemory: {
-            name: "InMemoryDatabase",
-            keys: {
-                peopleLastKey: "\x00",
-                citiesLastKey: "\x00",
-                agentsLastKey: "\x00"
+export default class GameConfig implements IGameConfig {
+    public age: number;
+    
+    public database: DatabaseType;
+    
+    public databases: {
+        inMemory: IDatabaseConfig
+    };
+    
+    constructor() {
+        this.age = 0;                             // Age in the game
+        this.database = "inMemory",               // Main database
+        this.databases = {                        // Configurations of the all possible databases
+            inMemory: {
+                name: "InMemoryDatabase",
+                keys: {
+                    peopleLastKey: "\x00",
+                    citiesLastKey: "\x00",
+                    agentsLastKey: "\x00"
+                }
             }
         }
     }
-    // TODO: setNewKey(key: string, database?: DatabaseType): void {};
+    
+    public setNewKey(key: string, table: TableType, database?: DatabaseType): void {    
+        this.databases[database ?? this.database].keys[`${table}LastKey`] = key;
+    }
+    
+    public getLastKey(table: TableType, database?: DatabaseType): string {
+        return this.databases[database ?? this.database].keys[`${table}LastKey`];
+    };
 };
-
-export default GameConfig;

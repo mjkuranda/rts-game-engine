@@ -1,7 +1,6 @@
 import GameManager from "./GameManager";
 import GameConfig, { IGameConfig } from "./GameConfig";
 
-import { people, cities, agents } from './GameData';
 import Database from "./databases/Database";
 import InMemoryDatabase from "./databases/InMemoryDatabase";
 
@@ -20,7 +19,7 @@ export default class Game {
     private database: Database;
     
     constructor(database?: Database) {
-        this.config = GameConfig;
+        this.config = new GameConfig();
         this.manager = new GameManager();
         this.database = database ?? new InMemoryDatabase(this.config);
     }

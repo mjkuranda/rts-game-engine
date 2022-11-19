@@ -1,5 +1,10 @@
 # RTS Game Engine
 
+## [1.6.0] 2022-11-19
+### Added
+- [@mjkuranda]: Added game configuration class.
+- [@mjkuranda]: Added database abstraction layer and `InMemoryDatabase`.
+
 ## [1.5.0] 2022-11-18
 ### Added
 - [@mjkuranda]: Added handling tests in the library.

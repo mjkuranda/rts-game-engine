@@ -27,12 +27,13 @@ export default class InMemoryDatabase extends Database {
         this.provinces = [];
     }
     
+    // FIXME: Perhaps better implementation divides below methods into smaller function, i.e. setHuman, setAgent etc.
     public set<T>(object: T, vector?: Vector2): void {    
         if (object instanceof Human) {
-            const key = this.getConfig().databases['inMemory'].keys.peopleLastKey;
+            const key = this.getConfig().getLastKey('people', 'inMemory');
             
             this.people.set(key, object);
-            this.getConfig().databases['inMemory'].keys.peopleLastKey = this.generateNextKey(key);
+            this.getConfig().setNewKey(this.generateNextKey(key), 'people');
             
             return;
         }
@@ -51,10 +52,10 @@ export default class InMemoryDatabase extends Database {
         }
         
         if (object instanceof Agent) {
-            const key = this.getConfig().databases['inMemory'].keys.agentsLastKey;
+            const key = this.getConfig().getLastKey('agents', 'inMemory');
             
             this.agents.set(key, object);
-            this.getConfig().databases['inMemory'].keys.agentsLastKey = this.generateNextKey(key);
+            this.getConfig().setNewKey(this.generateNextKey(key), 'agents');
             
             return;
         }

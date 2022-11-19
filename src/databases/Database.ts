@@ -3,6 +3,7 @@ import { IGameConfig } from "../GameConfig";
 
 interface IDatabase {    
     set<T>(object: T): void;
+    // TODO: The other operation as `get`, `delete` and `update`.
     
     getConfig(): IGameConfig;
     status(): void;
