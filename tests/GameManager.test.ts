@@ -15,7 +15,7 @@ describe('GameManager', () => {
         const result = manager.born(name, age);
         
         // Then
-        expect((result.result as Human).getGender()).toBe(Gender.MALE);
+        expect(result.object.getGender()).toBe(Gender.MALE);
     });
     
     it('Should born new woman', () => {
@@ -28,7 +28,7 @@ describe('GameManager', () => {
         const result = manager.born(name, age, gender);
         
         // Then
-        expect((result.result as Human).getGender()).toBe(Gender.FEMALE);
+        expect(result.object.getGender()).toBe(Gender.FEMALE);
     });
     
     it('Should create new agent', () => {

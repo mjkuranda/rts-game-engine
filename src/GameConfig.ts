@@ -17,7 +17,7 @@ export interface IGameConfig {
 
 type TableType = "people" | "cities" | "agents";
 
-/*
+/**
     GameConfig includes basic configuration,
     i.e. current using database, age in the game,
     and also handles keys in the tables - set and get operation.

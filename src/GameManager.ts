@@ -5,13 +5,17 @@ import Vector2 from "./classes/Vector2";
 
 import { people, cities, agents } from './GameData';
 
-interface GameObject {
+interface GameObject<T> {
     id: string;
-    result: City | Human | Agent;  
+    /**
+     * Type of result object.
+     * One of them: City | Human | Agent
+     */
+    object: T;
 };
 
 export default class GameManager {
-    public settle(name: string, agentId: AgentId, v: Vector2): GameObject {
+    public settle(name: string, agentId: AgentId, v: Vector2): GameObject<City> {
         const city = new City(name, agents.get(agentId)?.getEntitiesIds() ?? []);
         const id = `${v.getX()}:${v.getY()}`;
         cities.set(id, city);
@@ -21,11 +25,11 @@ export default class GameManager {
         
         return {
             id,
-            result: city
+            object: city
         };
     }
     
-    public born(name: string, age: number, isMale?: boolean): GameObject {
+    public born(name: string, age: number, isMale?: boolean): GameObject<Human> {
         const child = new Human(name, age, isMale);
         const childId = String.fromCharCode(people.size);
         
@@ -33,7 +37,7 @@ export default class GameManager {
         
         return {
             id: childId,
-            result: child
+            object: child
         };
     }
     
@@ -68,14 +72,14 @@ export default class GameManager {
     
     // TODO: Add new method: gainSkill
     
-    public setAgent(type: AgentType, v: Vector2, humanIds: string[]): GameObject {
+    public setAgent(type: AgentType, v: Vector2, humanIds: string[]): GameObject<Agent> {
         const agent = new Agent(type, v, humanIds);
         const agentId = String.fromCharCode(agents.size);
         agents.set(agentId, agent);
         
         return {
             id: agentId,
-            result: agent
+            object: agent
         };
     }
     
