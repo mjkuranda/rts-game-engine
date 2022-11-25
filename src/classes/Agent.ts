@@ -17,9 +17,9 @@ export enum AgentTypes {
 
 /*
     Every instance of this object needs to assign about 68B.
-    It consist of:
+    It consists of:
     coords: 4B
-    entitiesIds: (each 2B) and max. 32? them, then 64B.
+    entitiesIds: (each 2B) and max. 32?, then 64B.
 */
 export default class Agent implements IAgent {
     private entitiesIds: string[];
@@ -33,7 +33,11 @@ export default class Agent implements IAgent {
         this.entitiesIds = entitiesId ?? [];
         this.v = v;
     }
-    
+
+    public getType(): AgentType {
+        return this.type;
+    }
+
     public getEntitiesIds(): string[] {
         return this.entitiesIds;
     }

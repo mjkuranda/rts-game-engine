@@ -1,4 +1,4 @@
-import { AgentTypes } from "../src/classes/Agent";
+import Agent, { AgentTypes } from "../src/classes/Agent";
 import Human, { Gender, Skills } from "../src/classes/entities/Human";
 import Vector2 from "../src/classes/Vector2";
 import GameManager from "../src/GameManager";
@@ -62,7 +62,7 @@ describe('GameManager', () => {
             const result = manager.setAgent(agentType, vector, humansListIds);
 
             // Then
-            expect(result.id).toBe(expectedResultId);
+            expect(result.getGameObject()?.id).toBe(expectedResultId);
         });
     });
 
@@ -71,14 +71,15 @@ describe('GameManager', () => {
             // Given
             const name = "Babel";
             const coords = new Vector2(5, 10);
+            const agent = new Agent("Tribe", coords, [ "\x00", "\x01" ]);
 
             const expectedResultSuccess = true;
 
             // When
-            const result = manager.settle(name, 'xxx', coords);
+            const result = manager.settle(name, agent, coords);
 
             // Then
-            expect(result.success).toBe(expectedResultSuccess);
+            expect(result.isSucceeded()).toBe(expectedResultSuccess);
         });
     });
 });

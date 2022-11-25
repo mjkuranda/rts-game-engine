@@ -53,11 +53,9 @@ export default class InMemoryDatabase extends Database {
         }
         
         if (object instanceof Agent) {
-            const key = this.getConfig().getLastKey('agents', 'inMemory');
-            
+            const key = `${vector?.getX()}:${vector?.getY()}`;
             this.agents.set(key, object);
-            this.getConfig().setNewKey(this.generateNextKey(key), 'agents');
-            
+
             return;
         }
         
