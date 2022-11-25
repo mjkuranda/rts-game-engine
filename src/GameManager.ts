@@ -6,6 +6,8 @@ import Vector2 from "./classes/Vector2";
 import { people, cities, agents } from './GameData';
 import Database, {DatabaseResult} from "./databases/Database";
 import DatabaseObjectNotFoundError from "./errors/DatabaseObjectNotFoundError";
+import InMemoryDatabase from "./databases/InMemoryDatabase";
+import GameConfig from "./GameConfig";
 
 interface GameObject<T> {
     id: string;
@@ -24,9 +26,11 @@ interface GameOperationResult<GameObjectType> {
 
 export default class GameManager {
     private db: Database;
+    private config: GameConfig;
 
-    constructor(db: Database) {
-        this.db = db;
+    constructor(db?: Database, config?: GameConfig) {
+        this.config = config ?? new GameConfig();
+        this.db = db ?? new InMemoryDatabase(this.config);
     }
 
     public settle(name: string, agentId: AgentId, v: Vector2): GameOperationResult<City> {
