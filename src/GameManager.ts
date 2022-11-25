@@ -4,6 +4,8 @@ import Human, { HumanId, SpouseId } from "./classes/entities/Human";
 import Vector2 from "./classes/Vector2";
 
 import { people, cities, agents } from './GameData';
+import Database, {DatabaseResult} from "./databases/Database";
+import DatabaseObjectNotFoundError from "./errors/DatabaseObjectNotFoundError";
 
 interface GameObject<T> {
     id: string;
@@ -14,18 +16,74 @@ interface GameObject<T> {
     object: T;
 };
 
+interface GameOperationResult<GameObjectType> {
+    success: boolean;
+    message: string;
+    gameObject?: GameObject<GameObjectType>;
+}
+
 export default class GameManager {
-    public settle(name: string, agentId: AgentId, v: Vector2): GameObject<City> {
-        const city = new City(name, agents.get(agentId)?.getEntitiesIds() ?? []);
-        const id = `${v.getX()}:${v.getY()}`;
-        cities.set(id, city);
-        agents.delete(agentId);
-        
-        console.info(`Settled new city: ${city.getName()}`);
+    private db: Database;
+
+    constructor(db: Database) {
+        this.db = db;
+    }
+
+    public settle(name: string, agentId: AgentId, v: Vector2): GameOperationResult<City> {
+        try {
+            const result = this.db.get(agentId, "agents");
+
+            if (!result.object) {
+                return {
+                    success: false,
+                    message: "Agent not found."
+                };
+            }
+
+            const agent = result.object as Agent;
+
+            const city = new City(name, agent.getEntitiesIds() ?? []);
+            const id = `${v.getX()}:${v.getY()}`;
+
+            try {
+                this.db.set<City>(city, v);
+                this.db.delete(agentId, "agents");
+            }
+            catch (err) {
+                if (err instanceof DatabaseObjectNotFoundError) {
+                    return {
+                        success: false,
+                        message: err.message
+                    };
+                }
+
+                return {
+                    success: false,
+                    message: "Settle new city failed."
+                };
+            }
+
+            return {
+                success: true,
+                message: `Settled new city: ${city.getName()}.`,
+                gameObject: {
+                    id,
+                    object: city
+                }
+            };
+        }
+        catch (err) {
+            if (err instanceof DatabaseObjectNotFoundError) {
+                return {
+                    success: false,
+                    message: err.message
+                };
+            }
+        }
         
         return {
-            id,
-            object: city
+            success: false,
+            message: "Settle new city failed."
         };
     }
     
@@ -97,5 +155,13 @@ export default class GameManager {
         }
         
         console.info('All cities updated');
+    }
+
+    public switchDatabase(db: Database) {
+        this.db = db;
+    }
+
+    public getDatabase(): Database {
+        return this.db;
     }
 }

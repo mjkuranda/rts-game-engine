@@ -1,9 +1,28 @@
 import Vector2 from "../classes/Vector2";
-import { IGameConfig } from "../GameConfig";
+import {IGameConfig, TableType} from "../GameConfig";
+import City from "../classes/City";
+import Human from "../classes/entities/Human";
+import Agent from "../classes/Agent";
+
+type DatabaseResultType = City | Human | Agent;
+
+interface IDatabaseResult {
+    object: DatabaseResultType;
+};
+
+export class DatabaseResult implements IDatabaseResult {
+    public object: DatabaseResultType;
+
+    constructor(object: DatabaseResultType) {
+        this.object = object;
+    }
+}
 
 interface IDatabase {    
     set<T>(object: T): void;
-    // TODO: The other operation as `get`, `delete` and `update`.
+    get(id: string, type: TableType): DatabaseResult;
+    delete(id: string, type: TableType): void;
+    // TODO: The other operation as `update`.
     
     getConfig(): IGameConfig;
     status(): void;
@@ -17,12 +36,16 @@ export default abstract class Database implements IDatabase {
     }
     
     abstract set<T>(object: T, vector?: Vector2): void;
+
+    abstract get(id: string, type: TableType): DatabaseResult;
+
+    abstract delete(id: string, type: TableType): void;
     
     public getConfig(): IGameConfig {
         return this.config;
     }
     
-    /* Supermethod occurring in all database classes */
+    /* Super method occurring in all database classes */
     public generateNextKey(key: string): string {
         let keyCode = key.charCodeAt(0);
         

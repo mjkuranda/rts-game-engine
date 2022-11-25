@@ -15,7 +15,7 @@ export interface IGameConfig {
     getLastKey: (table: TableType, database?: DatabaseType) => string;
 };
 
-type TableType = "people" | "cities" | "agents";
+export type TableType = "people" | "cities" | "agents";
 
 /**
     GameConfig includes basic configuration,

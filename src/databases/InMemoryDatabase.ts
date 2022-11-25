@@ -2,8 +2,9 @@ import Agent from "../classes/Agent";
 import City from "../classes/City";
 import Human from "../classes/entities/Human";
 import Vector2 from "../classes/Vector2";
-import { IGameConfig } from "../GameConfig";
-import Database from "./Database";
+import { IGameConfig, TableType } from "../GameConfig";
+import Database, { DatabaseResult } from "./Database";
+import DatabaseObjectNotFoundError from "../errors/DatabaseObjectNotFoundError";
 
 export default class InMemoryDatabase extends Database {
     /* Key: `String.fromCharCode(size)`, value: Human object */
@@ -62,7 +63,31 @@ export default class InMemoryDatabase extends Database {
         
         console.error('Error: Invalid object type.');
     }
-    
+
+    public get(id: string, type: TableType): DatabaseResult {
+        const dbResult = this[type].get(id);
+
+        if (!dbResult) {
+            throw new DatabaseObjectNotFoundError(id, type);
+        }
+
+        return new DatabaseResult(dbResult);
+    }
+
+    public delete(id: string, type: TableType): void {
+        const dbResult = this[type].get(id);
+
+        if (!dbResult) {
+            throw new DatabaseObjectNotFoundError(id, type)
+        }
+
+        const result = this[type].delete(id);
+
+        if (!result) {
+            throw new Error("Database error");
+        }
+    }
+
     public status(): void {
         console.info("Database status: connected to \"InMemoryDatabase\".");
         console.table({
