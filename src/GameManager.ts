@@ -8,6 +8,7 @@ import Database from "./databases/Database";
 import DatabaseObjectNotFoundError from "./errors/DatabaseObjectNotFoundError";
 import InMemoryDatabase from "./databases/InMemoryDatabase";
 import GameConfig from "./GameConfig";
+import Game from "./Game";
 
 interface GameObject<T> {
     id: string;
@@ -114,17 +115,47 @@ export default class GameManager {
         people.get(spouseId2)!.marriage(spouseId1);
     }
 
-    // FIXME: GameOperationResult as a return type
-    public handleDeath(id: HumanId): void {
-        if (people.get(id) === undefined) return;
-        console.info(`Unfortunately, ${people.get(id)} died.`);
-        
-        const spouseId = people.get(id)!.getSpouseId();
-        if (spouseId) {
-            people.get(spouseId)!.dissolveMarriage();   
+    public handleDeath(id: HumanId): GameOperationResult<null> {
+        try {
+            const result = this.db.get(id, "people");
+            const human = result.object as Human;
+
+            console.info(`Unfortunately, ${people.get(id)} died.`);
+
+            const spouseId = human.getSpouseId();
+            if (spouseId) {
+                try {
+                    const spouseResult = this.db.get(spouseId, "people");
+                    const spouse = spouseResult.object as Human;
+                    spouse.dissolveMarriage();
+
+                    try {
+                        this.db.delete(id, "people");
+                        const message = `Unfortunately, ${people.get(id)} died.`;
+
+                        return new GameOperationResult<null>(message);
+                    }
+                    catch (err) {
+                        if (err instanceof Error) {
+                            return new GameOperationResult<null>(err.message);
+                        }
+                    }
+
+                }
+                catch(err) {
+                    if (err instanceof DatabaseObjectNotFoundError) {
+                        return new GameOperationResult<null>(err.message);
+                    }
+                }
+            }
         }
-        
-        people.delete(id);
+        catch(err) {
+            if (err instanceof DatabaseObjectNotFoundError) {
+                return new GameOperationResult<null>(err.message);
+            }
+        }
+
+        return new GameOperationResult<null>("Fortunately the death wasn't handled.");
     }
     
     // TODO: Add new method: gainSkill

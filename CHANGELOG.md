@@ -1,5 +1,13 @@
 # RTS Game Engine
 
+## [1.7.0] 2022-11-25
+### Added
+- [@mjkuranda]: Error handling and their own types.
+
+### Changed
+- [@mjkuranda]: Improved database interface: get and delete.
+- [@mjkuranda]: Improved `GameManager` - new return types and database implementation.
+
 ## [1.6.0] 2022-11-19
 ### Added
 - [@mjkuranda]: Added game configuration class.
