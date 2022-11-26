@@ -5,7 +5,10 @@
 - [@mjkuranda]: GameManager operations.
 
 ### Added
-- [@mjkuranda]: Key generation for `Human`, `City` and `Agent`.
+- [@mjkuranda]: Keys for `Human` and `Agent`.
+
+### Removed
+- [@mjkuranda]: GameObject type. It has been only object since now - without it.
 
 ## [1.7.0] 2022-11-25
 ### Added

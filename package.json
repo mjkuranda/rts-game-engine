@@ -1,11 +1,11 @@
 {
     "name": "rts-game-engine",
-    "version": "1.7.0",
+    "version": "1.7.1",
     "description": "Library for game engine",
-    "main": "index.js",
+    "main": "dist/index.js",
     "scripts": {
         "test": "npx jest",
-        "start": "node index.js",
+        "start": "node dist/index.js",
         "compile": "npx tsc",
         "daemon": "nodemon index.ts"
     },

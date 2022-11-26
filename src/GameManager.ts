@@ -9,32 +9,23 @@ import DatabaseObjectNotFoundError from "./errors/DatabaseObjectNotFoundError";
 import InMemoryDatabase from "./databases/InMemoryDatabase";
 import GameConfig from "./GameConfig";
 
-interface GameObject<T> {
-    id?: string;
-    /**
-     * Type of result object.
-     * One of them: City | Human | Agent
-     */
-    object: T;
-};
-
 export class GameOperationResult<GameObjectType> {
     private success: boolean;
     private message: string;
-    private gameObject?: GameObject<GameObjectType>;
+    private gameObject?: GameObjectType;
 
     constructor(message: string) {
         this.success = false;
         this.message = message;
     }
 
-    public setGameObject(gameObject: GameObject<GameObjectType>): GameOperationResult<GameObjectType> {
+    public setGameObject(gameObject: GameObjectType): GameOperationResult<GameObjectType> {
         this.gameObject = gameObject;
 
         return this;
     }
 
-    public getGameObject(): GameObject<GameObjectType> | undefined {
+    public getGameObject(): GameObjectType | undefined {
         return this.gameObject;
     }
 
@@ -79,7 +70,7 @@ export default class GameManager {
 
         const message = `Settled new city: ${city.getName()}.`;
 
-        return new GameOperationResult<City>(message).setGameObject({ id, object: city }).succeed();
+        return new GameOperationResult<City>(message).setGameObject(city).succeed();
     }
 
     public born(name: string, age: number, isMale?: boolean): GameOperationResult<Human> {
@@ -88,7 +79,7 @@ export default class GameManager {
         try {
             this.db.set<Human>(child);
 
-            return new GameOperationResult<Human>("New child has been born!").setGameObject({ object: child }).succeed();
+            return new GameOperationResult<Human>("New child has been born!").setGameObject(child).succeed();
         }
         catch(err) {
             if (err instanceof DatabaseObjectNotFoundError) {
@@ -169,8 +160,7 @@ export default class GameManager {
             return new GameOperationResult<Agent>("Setting a new agent failed.");
         }
 
-        return new GameOperationResult<Agent>("New agent was successfully created.").setGameObject({ id: agentId,
-            object: agent }).succeed();
+        return new GameOperationResult<Agent>("New agent was successfully created.").setGameObject(agent).succeed();
     }
 
     // FIXME: Change return type

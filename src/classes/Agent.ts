@@ -41,4 +41,8 @@ export default class Agent implements IAgent {
     public getEntitiesIds(): string[] {
         return this.entitiesIds;
     }
+
+    public getId(): AgentId {
+        return `${this.v.getX()}:${this.v.getY()}`;
+    }
 }

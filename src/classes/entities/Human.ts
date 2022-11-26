@@ -28,11 +28,9 @@ const SkillsDetails: Record<string, Skill> = {
     [Skills.SCIENCE]: { offset: 0, mask: 0x0007 }
 };
 
-// { offset: 12, mask: 0x7000 }
-
 /*
     Every instance of this object needs to assign about 42B.
-    It consist of:
+    It consists of:
     name: (max 16 chars), then: 32B maximally
     age: 8B
     spouseId: 2B
@@ -40,6 +38,9 @@ const SkillsDetails: Record<string, Skill> = {
 */
 export default class Human {
     // Human id
+    private id: HumanId;
+
+    // Human spouse id
     private spouseId: SpouseId | null;
     
     // Gender (true - male, false - female)
@@ -50,12 +51,14 @@ export default class Human {
     constructor(
         private readonly name: string,
         private readonly age?: number,
-        isMale?: boolean) {
+        isMale?: boolean,
+        peopleSize?: number) {
         this.name = name.slice(0, 16);
         this.age = age ?? 0;
         this.gender = isMale ?? true;
         this.spouseId = null;
         this.skills = '\x00'; // 0
+        this.id = String.fromCodePoint(peopleSize ?? Math.floor(Math.random() * 100000));
     }
     
     public getName(): string {
@@ -114,5 +117,9 @@ export default class Human {
     
     public getSkill(skill: Skills): number {
         return (this.skills.charCodeAt(0) & SkillsDetails[skill].mask) >> SkillsDetails[skill].offset;
+    }
+
+    public getId(): HumanId {
+        return this.id;
     }
 }

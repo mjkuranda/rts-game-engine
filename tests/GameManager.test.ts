@@ -16,7 +16,7 @@ describe('GameManager', () => {
             const result = manager.born(name, age);
 
             // Then
-            expect(result.object.getGender()).toBe(Gender.MALE);
+            expect(result.getGameObject()?.getGender()).toBe(Gender.MALE);
         });
 
         it('Should born new woman', () => {
@@ -29,7 +29,7 @@ describe('GameManager', () => {
             const result = manager.born(name, age, gender);
 
             // Then
-            expect(result.object.getGender()).toBe(Gender.FEMALE);
+            expect(result.getGameObject()?.getGender()).toBe(Gender.FEMALE);
         });
 
         it('Should gain a new engineering skills', () => {
@@ -62,7 +62,7 @@ describe('GameManager', () => {
             const result = manager.setAgent(agentType, vector, humansListIds);
 
             // Then
-            expect(result.getGameObject()?.id).toBe(expectedResultId);
+            expect(result.getGameObject()?.getId()).toBe(expectedResultId);
         });
     });
 

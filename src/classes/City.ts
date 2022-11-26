@@ -3,9 +3,9 @@ import GameManager from '../GameManager';
 
 /*
     Every instance of this object needs to assign about 150B.
-    It consist of:
+    It consists of:
     name: (max 16 chars), then: 32B maximally
-    inhabitants: (each 2B) and max. 64? them, then 128B.
+    inhabitants: (each 2B) and max. 64?, then 128B.
 */
 export default class City {
     constructor(private readonly name: string,
@@ -20,7 +20,7 @@ export default class City {
             if (!people.get(humanId)?.getSpouseId()) continue;
             
             // Try to born a new inhabitant
-            this.inhabitants.push(manager.born('child', age).id);
+            this.inhabitants.push(manager.born('child', age).getGameObject()!.getId());
         }
         
         console.info(`${this.name} city was updated!`);
