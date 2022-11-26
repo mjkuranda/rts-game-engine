@@ -86,6 +86,22 @@ export default class InMemoryDatabase extends Database {
         }
     }
 
+    public update<T>(id: string, object: T): void {
+        if (object instanceof Human) {
+            this.people.set(id, object);
+        }
+
+        if (object instanceof City) {
+            this.cities.set(id, object);
+        }
+
+        if (object instanceof Agent) {
+            this.agents.set(id, object);
+        }
+
+        console.error("Error: Invalid object type.");
+    }
+
     public status(): void {
         console.info("Database status: connected to \"InMemoryDatabase\".");
         console.table({
@@ -94,5 +110,5 @@ export default class InMemoryDatabase extends Database {
             ["Agents"]: { ["Number"]: this.agents.size }
         });
     }
-    
+
 }

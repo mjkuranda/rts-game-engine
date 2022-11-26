@@ -8,10 +8,9 @@ import Database from "./databases/Database";
 import DatabaseObjectNotFoundError from "./errors/DatabaseObjectNotFoundError";
 import InMemoryDatabase from "./databases/InMemoryDatabase";
 import GameConfig from "./GameConfig";
-import Game from "./Game";
 
 interface GameObject<T> {
-    id: string;
+    id?: string;
     /**
      * Type of result object.
      * One of them: City | Human | Agent
@@ -83,21 +82,23 @@ export default class GameManager {
         return new GameOperationResult<City>(message).setGameObject({ id, object: city }).succeed();
     }
 
-    // FIXME: GameOperationResult as a return type
-    public born(name: string, age: number, isMale?: boolean): GameObject<Human> {
+    public born(name: string, age: number, isMale?: boolean): GameOperationResult<Human> {
         const child = new Human(name, age, isMale);
-        // Fixme: config.lastIndex instead of people.size
-        const childId = String.fromCharCode(people.size);
-        
-        people.set(childId, child);
-        
-        return {
-            id: childId,
-            object: child
-        };
+
+        try {
+            this.db.set<Human>(child);
+
+            return new GameOperationResult<Human>("New child has been born!").setGameObject({ object: child }).succeed();
+        }
+        catch(err) {
+            if (err instanceof DatabaseObjectNotFoundError) {
+                return new GameOperationResult<Human>(err.message);
+            }
+        }
+
+        return new GameOperationResult<Human>("Something went wrong while born.");
     }
 
-    // FIXME: GameOperationResult as a return type
     public marriage(spouseId1: SpouseId, spouseId2: SpouseId): GameOperationResult<null> {
         try {
             const spouse1 = this.db.get(spouseId1, "people").object as Human;
@@ -113,6 +114,11 @@ export default class GameManager {
 
             spouse1.marriage(spouseId2);
             spouse2.marriage(spouseId1);
+
+            this.db.update<Human>(spouseId1, spouse1);
+            this.db.update<Human>(spouseId2, spouse2);
+
+            return new GameOperationResult<null>("All good for new marriage!").succeed();
         }
         catch(err) {
             if (err instanceof DatabaseObjectNotFoundError) {

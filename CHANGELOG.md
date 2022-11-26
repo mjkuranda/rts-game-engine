@@ -1,5 +1,12 @@
 # RTS Game Engine
 
+## [1.7.1] 2022-11-26
+### Improved
+- [@mjkuranda]: GameManager operations.
+
+### Added
+- [@mjkuranda]: Key generation for `Human`, `City` and `Agent`.
+
 ## [1.7.0] 2022-11-25
 ### Added
 - [@mjkuranda]: Error handling and their own types.

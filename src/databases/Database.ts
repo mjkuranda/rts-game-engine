@@ -22,7 +22,7 @@ interface IDatabase {
     set<T>(object: T): void;
     get(id: string, type: TableType): DatabaseResult;
     delete(id: string, type: TableType): void;
-    // TODO: The other operation as `update`.
+    update<T>(id: string, object: T, type: TableType): void;
     
     getConfig(): IGameConfig;
     status(): void;
@@ -40,6 +40,8 @@ export default abstract class Database implements IDatabase {
     abstract get(id: string, type: TableType): DatabaseResult;
 
     abstract delete(id: string, type: TableType): void;
+
+    abstract update<T>(id: string, object: T): void;
     
     public getConfig(): IGameConfig {
         return this.config;
