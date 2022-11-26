@@ -98,21 +98,29 @@ export default class GameManager {
     }
 
     // FIXME: GameOperationResult as a return type
-    public marriage(spouseId1: SpouseId, spouseId2: SpouseId): void {
-        if (!people.get(spouseId1) || !people.get(spouseId2)) {
-            console.error("Error: Marriage failed.");
-            
-            return;
+    public marriage(spouseId1: SpouseId, spouseId2: SpouseId): GameOperationResult<null> {
+        try {
+            const spouse1 = this.db.get(spouseId1, "people").object as Human;
+            const spouse2 = this.db.get(spouseId2, "people").object as Human;
+
+            if (!spouse1 || !spouse2) {
+                return new GameOperationResult<null>("Error: Marriage failed.");
+            }
+
+            if (spouse1.getGender() === spouse2.getGender()) {
+                return new GameOperationResult<null>("Error: They has the same gender.")
+            }
+
+            spouse1.marriage(spouseId2);
+            spouse2.marriage(spouseId1);
         }
-        
-        if (people.get(spouseId1)!.getGender() === people.get(spouseId2)!.getGender()) {
-            console.error("Error: Nupturients has the same gender!");
-            
-            return;
+        catch(err) {
+            if (err instanceof DatabaseObjectNotFoundError) {
+                return new GameOperationResult<null>(err.message);
+            }
         }
-        
-        people.get(spouseId1)!.marriage(spouseId2);
-        people.get(spouseId2)!.marriage(spouseId1);
+
+        return new GameOperationResult<null>("Error: Marriage operation failed.")
     }
 
     public handleDeath(id: HumanId): GameOperationResult<null> {
@@ -120,34 +128,18 @@ export default class GameManager {
             const result = this.db.get(id, "people");
             const human = result.object as Human;
 
-            console.info(`Unfortunately, ${people.get(id)} died.`);
-
             const spouseId = human.getSpouseId();
+
             if (spouseId) {
-                try {
-                    const spouseResult = this.db.get(spouseId, "people");
-                    const spouse = spouseResult.object as Human;
-                    spouse.dissolveMarriage();
-
-                    try {
-                        this.db.delete(id, "people");
-                        const message = `Unfortunately, ${people.get(id)} died.`;
-
-                        return new GameOperationResult<null>(message);
-                    }
-                    catch (err) {
-                        if (err instanceof Error) {
-                            return new GameOperationResult<null>(err.message);
-                        }
-                    }
-
-                }
-                catch(err) {
-                    if (err instanceof DatabaseObjectNotFoundError) {
-                        return new GameOperationResult<null>(err.message);
-                    }
-                }
+                const spouseResult = this.db.get(spouseId, "people");
+                const spouse = spouseResult.object as Human;
+                spouse.dissolveMarriage();
             }
+
+            this.db.delete(id, "people");
+            const message = `Unfortunately, ${people.get(id)} died.`;
+
+            return new GameOperationResult<null>(message);
         }
         catch(err) {
             if (err instanceof DatabaseObjectNotFoundError) {
