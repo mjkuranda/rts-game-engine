@@ -1,5 +1,5 @@
 import Vector2 from "../classes/Vector2";
-import {IGameConfig, TableType} from "../GameConfig";
+import GameConfig, { TableType} from "../GameConfig";
 import City from "../classes/City";
 import Human from "../classes/entities/Human";
 import Agent from "../classes/Agent";
@@ -8,7 +8,7 @@ type DatabaseResultType = City | Human | Agent;
 
 interface IDatabaseResult {
     object: DatabaseResultType;
-};
+}
 
 export class DatabaseResult implements IDatabaseResult {
     public object: DatabaseResultType;
@@ -24,14 +24,14 @@ interface IDatabase {
     delete(id: string, type: TableType): void;
     update<T>(id: string, object: T, type: TableType): void;
     
-    getConfig(): IGameConfig;
+    getConfig(): GameConfig;
     status(): void;
 }
 
 export default abstract class Database implements IDatabase {
-    private config: IGameConfig;
+    private config: GameConfig;
     
-    constructor(config: IGameConfig) {
+    constructor(config: GameConfig) {
         this.config = config;
     }
     
@@ -43,7 +43,7 @@ export default abstract class Database implements IDatabase {
 
     abstract update<T>(id: string, object: T): void;
     
-    public getConfig(): IGameConfig {
+    public getConfig(): GameConfig {
         return this.config;
     }
     

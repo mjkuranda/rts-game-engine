@@ -3,9 +3,9 @@ type DatabaseType = "inMemory";
 interface IDatabaseConfig {
     name: string;
     keys: { peopleLastKey: string, citiesLastKey: string, agentsLastKey: string }
-};
+}
 
-export interface IGameConfig {
+interface IGameConfig {
     age: number;
     database: DatabaseType;
     databases: {
@@ -13,7 +13,7 @@ export interface IGameConfig {
     };
     setNewKey: (key: string, table: TableType, database?: DatabaseType) => void;
     getLastKey: (table: TableType, database?: DatabaseType) => string;
-};
+}
 
 export type TableType = "people" | "cities" | "agents";
 
@@ -33,7 +33,7 @@ export default class GameConfig implements IGameConfig {
     
     constructor() {
         this.age = 0;                             // Age in the game
-        this.database = "inMemory",               // Main database
+        this.database = "inMemory";               // Main database
         this.databases = {                        // Configurations of the all possible databases
             inMemory: {
                 name: "InMemoryDatabase",
@@ -43,7 +43,7 @@ export default class GameConfig implements IGameConfig {
                     agentsLastKey: "\x00"
                 }
             }
-        }
+        };
     }
     
     public setNewKey(key: string, table: TableType, database?: DatabaseType): void {    

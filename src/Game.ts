@@ -1,5 +1,5 @@
 import GameManager from "./GameManager";
-import GameConfig, { IGameConfig } from "./GameConfig";
+import GameConfig from "./GameConfig";
 
 import Database from "./databases/Database";
 import InMemoryDatabase from "./databases/InMemoryDatabase";
@@ -10,7 +10,7 @@ import InMemoryDatabase from "./databases/InMemoryDatabase";
 
 export default class Game {
     /* Configuration of the game */
-    private config: IGameConfig;
+    private config: GameConfig;
     
     /* A manager of the game */
     private manager: GameManager;
@@ -18,10 +18,10 @@ export default class Game {
     /* Main database using in the game */
     private database: Database;
     
-    constructor(database?: Database) {
-        this.config = new GameConfig();
-        this.manager = new GameManager();
+    constructor(config?: GameConfig, manager?: GameManager, database?: Database) {
+        this.config = config ?? new GameConfig();
         this.database = database ?? new InMemoryDatabase(this.config);
+        this.manager = manager ?? new GameManager(this.database, this.config);
     }
     
     public getConfig() {
@@ -34,6 +34,11 @@ export default class Game {
     
     public getManager(): GameManager {
         return this.manager;
+    }
+
+    public switchDatabase(db: Database) {
+        this.database = db;
+        this.getManager().switchDatabase(db);
     }
     
     public getDatabase(): Database {
@@ -49,9 +54,5 @@ export default class Game {
     public status(): void {
         console.info(`Game year ${this.config.age}, season ${this.config.age % 4}.`);
         this.database.status();
-        
-        // console.info('People status:', people);
-        // console.info('Cities status:', cities);
-        // console.info('Agents status:', agents);
     }
 }

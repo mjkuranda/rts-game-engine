@@ -1,5 +1,9 @@
 # RTS Game Engine
 
+## [1.8.0] 2022-12-03
+### Improved
+- [@mjkuranda]: Better initializing GameManager and Game.
+
 ## [1.7.1] 2022-11-26
 ### Improved
 - [@mjkuranda]: GameManager operations.

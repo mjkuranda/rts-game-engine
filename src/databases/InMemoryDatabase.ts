@@ -2,7 +2,7 @@ import Agent from "../classes/Agent";
 import City from "../classes/City";
 import Human from "../classes/entities/Human";
 import Vector2 from "../classes/Vector2";
-import { IGameConfig, TableType } from "../GameConfig";
+import GameConfig, { TableType } from "../GameConfig";
 import Database, { DatabaseResult } from "./Database";
 import DatabaseObjectNotFoundError from "../errors/DatabaseObjectNotFoundError";
 
@@ -19,7 +19,7 @@ export default class InMemoryDatabase extends Database {
     /* Two-dimensional array */
     private provinces: number[][];
 
-    constructor(config: IGameConfig) {
+    constructor(config: GameConfig) {
         super(config);
         
         this.people = new Map();

@@ -181,6 +181,7 @@ export default class GameManager {
         console.info('All cities updated');
     }
 
+    // TODO: It should update also database in Game instance.
     public switchDatabase(db: Database) {
         this.db = db;
     }
