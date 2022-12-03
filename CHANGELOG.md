@@ -6,6 +6,7 @@
 
 ### Added
 - [@mjkuranda]: Types file with all imports.
+- [@mjkuranda]: GainSkill method inside GameManager.
 
 ## [1.7.1] 2022-11-26
 ### Improved

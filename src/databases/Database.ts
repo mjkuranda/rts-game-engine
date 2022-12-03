@@ -22,7 +22,7 @@ interface IDatabase {
     set<T>(object: T): void;
     get(id: string, type: TableType): DatabaseResult;
     delete(id: string, type: TableType): void;
-    update<T>(id: string, object: T, type: TableType): void;
+    update<T>(id: string, object: T): void;
     
     getConfig(): GameConfig;
     status(): void;

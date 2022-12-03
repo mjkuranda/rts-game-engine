@@ -1,6 +1,6 @@
-import Agent, {AgentId, AgentType, AgentTypes} from "./classes/Agent";
+import Agent, { AgentType, AgentTypes } from "./classes/Agent";
 import City from "./classes/City";
-import Human, { HumanId, SpouseId } from "./classes/entities/Human";
+import Human, { HumanId, Skills, SpouseId } from "./classes/entities/Human";
 import Vector2 from "./classes/Vector2";
 
 import { people, cities, agents } from './GameData';
@@ -147,11 +147,32 @@ export default class GameManager {
         return new GameOperationResult<null>("Fortunately the death wasn't handled.");
     }
     
-    // TODO: Add new method: gainSkill
+    public gainSkill(id: HumanId, skill: Skills, amount: number): GameOperationResult<null> {
+        try {
+            const result = this.db.get(id, "people");
+
+            if (!result.object) {
+                return new GameOperationResult<null>("There is no found a such object. GainSkill failed.");
+            }
+
+            const human = result.object as Human;
+            human.gainSkill(skill, amount);
+
+            this.db.update<Human>(id, human);
+
+            return new GameOperationResult<null>("Human skill was successfully updated!");
+        }
+        catch (err) {
+            if (err instanceof DatabaseObjectNotFoundError) {
+                return new GameOperationResult<null>(err.message);
+            }
+        }
+
+        return new GameOperationResult<null>("GainSkill failed.");
+    }
     
     public setAgent(type: AgentType, v: Vector2, humanIds: string[]): GameOperationResult<Agent> {
         const agent = new Agent(type, v, humanIds);
-        const agentId = `${v.getX()}:${v.getY()}`;
 
         try {
             this.db.set<Agent>(agent, v);
@@ -163,16 +184,6 @@ export default class GameManager {
         return new GameOperationResult<Agent>("New agent was successfully created.").setGameObject(agent).succeed();
     }
 
-    // FIXME: Change return type
-    public getAgent(agentId: AgentId): Agent | null {
-        return agents.get(agentId) ?? null;
-    }
-
-    // FIXME: Change return type
-    public deleteAgent(agentId: AgentId): void {
-        agents.delete(agentId);
-    }
-    
     public nextAge(age: number): void {
         for (let [cityId, city] of cities) {
             city.nextAge(this, age);
