@@ -4,6 +4,9 @@
 ### Improved
 - [@mjkuranda]: Better initializing GameManager and Game.
 
+### Added
+- [@mjkuranda]: Types file with all imports.
+
 ## [1.7.1] 2022-11-26
 ### Improved
 - [@mjkuranda]: GameManager operations.
