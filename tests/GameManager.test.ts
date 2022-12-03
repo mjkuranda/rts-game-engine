@@ -56,7 +56,7 @@ describe('GameManager', () => {
                 '\x00',
                 '\x01'
             ];
-            const expectedResultId = '\x00';
+            const expectedResultId = "1:5";
 
             // When
             const result = manager.setAgent(agentType, vector, humansListIds);
@@ -72,6 +72,9 @@ describe('GameManager', () => {
             const name = "Babel";
             const coords = new Vector2(5, 10);
             const agent = new Agent("Tribe", coords, [ "\x00", "\x01" ]);
+
+            // Mocked data - Agent
+            manager.getDatabase().set<Agent>(agent, coords);
 
             const expectedResultSuccess = true;
 

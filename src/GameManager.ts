@@ -11,10 +11,9 @@ import GameConfig from "./GameConfig";
 
 export class GameOperationResult<GameObjectType> {
     private success: boolean;
-    private message: string;
     private gameObject?: GameObjectType;
 
-    constructor(message: string) {
+    constructor(private readonly message: string) {
         this.success = false;
         this.message = message;
     }
@@ -37,6 +36,10 @@ export class GameOperationResult<GameObjectType> {
 
     public isSucceeded(): boolean {
         return this.success;
+    }
+
+    public getMessage(): string {
+        return this.message;
     }
 }
 
