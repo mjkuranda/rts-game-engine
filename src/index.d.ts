@@ -3,8 +3,11 @@ import GameManager from "./GameManager";
 import GameConfig, { TableType } from "./GameConfig";
 import GameMap from "./GameMap";
 import MapChunk from "./map/MapChunk";
-import MapTile from "./map/MapTile";
-import { setMapTileResource, getMapTileResource, resetMapTileResource } from "./GameGlobalConfig";
+import MapTile, { MapTileType } from "./map/MapTile";
+import {
+    setMapTileResource, getMapTileResource, resetMapTileResource,
+    setMapTileType, getMapTileType, resetMapTileType
+} from "./GameGlobalConfig";
 
 import Human, { HumanId, SpouseId, Skills, Gender } from "./classes/entities/Human";
 import City from "./classes/City";
@@ -22,10 +25,11 @@ export {
     GameConfig, TableType,
     GameMap,
     MapChunk,
-    MapTile,
+    MapTile, MapTileType,
 
     // Game Global Config
     setMapTileResource, getMapTileResource, resetMapTileResource,
+    setMapTileType, getMapTileType, resetMapTileType,
 
     // Main classes
     Human, HumanId, SpouseId, Skills, Gender,

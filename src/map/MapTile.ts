@@ -2,14 +2,7 @@ import { ProvinceId } from "../classes/Province";
 import MapTileResource from "./MapTileResource";
 import { getMapTileResource } from "../GameGlobalConfig";
 
-enum MapTileType {
-    PLAINS = "Plains",
-    FOREST = "Forest",
-    HILLS = "Hills",
-    MOUNTAIN = "Mountain",
-    SEA = "Sea",
-    OCEAN = "Ocean"
-}
+export type MapTileType = string;
 
 /**
  * @type: define what is a tile type: forest, mountain...
