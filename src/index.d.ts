@@ -1,11 +1,16 @@
 import Game from "./Game";
 import GameManager from "./GameManager";
 import GameConfig, { TableType } from "./GameConfig";
+import GameMap from "./GameMap";
+import MapChunk from "./map/MapChunk";
+import MapTile from "./map/MapTile";
+import { setMapTileResource, getMapTileResource, resetMapTileResource } from "./GameGlobalConfig";
 
 import Human, { HumanId, SpouseId, Skills, Gender } from "./classes/entities/Human";
 import City from "./classes/City";
 import Agent, { AgentId, AgentType, AgentTypes } from "./classes/Agent";
 import Vector2 from "./classes/Vector2";
+import Province, { ProvinceId } from "./classes/Province";
 
 import Database, { DatabaseResult } from "./databases/Database";
 import InMemoryDatabase from "./databases/InMemoryDatabase";
@@ -15,12 +20,19 @@ export {
     Game,
     GameManager,
     GameConfig, TableType,
+    GameMap,
+    MapChunk,
+    MapTile,
+
+    // Game Global Config
+    setMapTileResource, getMapTileResource, resetMapTileResource,
 
     // Main classes
     Human, HumanId, SpouseId, Skills, Gender,
     City,
     Agent, AgentId, AgentType, AgentTypes,
     Vector2,
+    Province, ProvinceId,
 
     // Databases
     Database,
