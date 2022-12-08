@@ -1,5 +1,12 @@
 # RTS Game Engine
 
+## [1.9.0] 2022-12-08
+### Added
+- [@mjkuranda]: MapChunk, MapTile system.
+- [@mjkuranda]: Encoding and decoding chunk.
+- [@mjkuranda]: Game global config file containing many functionalities.
+- [@mjkuranda]: GameMap module.
+
 ## [1.8.0] 2022-12-03
 ### Improved
 - [@mjkuranda]: Better initializing GameManager and Game.

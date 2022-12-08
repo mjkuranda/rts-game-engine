@@ -5,9 +5,9 @@ import { getMapTileResource } from "../GameGlobalConfig";
 export type MapTileType = string;
 
 /**
- * @type: define what is a tile type: forest, mountain...
- * @provinceId: returns a province id
- * @data: consists of one character. It is divided into two parts: resource type (1B) and resource amount (1B).
+ * @param type - define what is a tile type: forest, mountain...
+ * @param provinceId - returns a province id
+ * @param data - consists of one character. It is divided into two parts: resource type (1B) and resource amount (1B).
 * */
 export default class MapTile {
     constructor(
@@ -26,9 +26,9 @@ export default class MapTile {
 
     public getResource(): MapTileResource {
         const dataNumber = this.data.charCodeAt(0);
-        const resourceNumber = (dataNumber & 0xFF00) >> 0x8;
+        const resourceTypeNumber = (dataNumber & 0xFF00) >> 0x8;
 
-        const type = getMapTileResource(String.fromCharCode(resourceNumber));
+        const type = getMapTileResource(String.fromCharCode(resourceTypeNumber)).name;
         const amount = dataNumber & 0x00FF;
 
         return new MapTileResource(type, amount);
