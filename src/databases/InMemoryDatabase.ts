@@ -5,6 +5,7 @@ import Vector2 from "../classes/Vector2";
 import GameConfig, { TableType } from "../GameConfig";
 import Database, { DatabaseResult } from "./Database";
 import DatabaseObjectNotFoundError from "../errors/DatabaseObjectNotFoundError";
+import MapChunk from "../map/MapChunk";
 
 export default class InMemoryDatabase extends Database {
     /* Key: `String.fromCharCode(size)`, value: Human object */
@@ -15,7 +16,10 @@ export default class InMemoryDatabase extends Database {
 
     /* Key: `x:y`, value: Agent object */
     private agents: Map<string, Agent>;
-        
+
+    /* Key: `x:y`, value: MapChunk array */
+    private chunks: Map<string, MapChunk>;
+
     /* Two-dimensional array */
     private provinces: number[][];
 
@@ -25,6 +29,7 @@ export default class InMemoryDatabase extends Database {
         this.people = new Map();
         this.cities = new Map();
         this.agents = new Map();
+        this.chunks = new Map();
         this.provinces = [];
     }
     

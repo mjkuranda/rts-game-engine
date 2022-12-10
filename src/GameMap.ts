@@ -52,7 +52,7 @@ export default class GameMap implements IGameMap {
      * */
     public moveTo(v: Vector2): void {
         const oldChunks = Array.from(this.chunks.keys());
-        const newChunks = ["0:0", "0:1", "0:2", "1:0", "1:1", "1:2", "2:0", "2:1", "2:2"];
+        const newChunks = this.generateNewCoords(v);
         const chunkCoords = new Set<string>([...oldChunks, ...newChunks ]);
 
         for (let el of chunkCoords) {
@@ -91,7 +91,7 @@ export default class GameMap implements IGameMap {
             }
         }
 
-        this.coords = new Vector2(v.getX() - 1, v.getY() - 1);
+        this.coords = this.generateNewCentralCoords(v);
     }
 
     /**
@@ -165,6 +165,39 @@ export default class GameMap implements IGameMap {
         const resourceData = data.at(2)!;
 
         return new MapTile(tileType, provinceId, resourceData);
+    }
+
+    /**
+     * Generates new coordinates.
+     *
+     * @param v new coordinates (center point)
+     * */
+    private generateNewCoords(v: Vector2): string[] {
+        const vx = (v.getX() % MapChunk.SIZE) - 1;
+        const vy = (v.getY() % MapChunk.SIZE) - 1;
+
+        const chunksCoords = [];
+
+        for (let y = 0; y < 3; y++) {
+            for (let x = 0; x < 3; x++) {
+                chunksCoords.push(`${x + vx}:${y + vy}`);
+            }
+        }
+
+        return chunksCoords;
+    }
+
+    /**
+     * Generate new central coords for position
+     *
+     * @param v Clicked position
+     * @returns new chunk coordinates (Vector2)
+     * */
+    private generateNewCentralCoords(v: Vector2): Vector2 {
+        const vx = (v.getX() % MapChunk.SIZE) - 1;
+        const vy = (v.getY() % MapChunk.SIZE) - 1;
+
+        return new Vector2(vx, vy);
     }
 
 }
