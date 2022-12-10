@@ -1,5 +1,9 @@
 # RTS Game Engine
 
+## [1.10.0] 2022-12-10
+### Improved
+- [@mjkuranda]: Encoding and decoding chunks and tiles.
+
 ## [1.9.0] 2022-12-08
 ### Added
 - [@mjkuranda]: MapChunk, MapTile system.

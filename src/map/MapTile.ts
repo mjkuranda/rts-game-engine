@@ -33,4 +33,15 @@ export default class MapTile {
 
         return new MapTileResource(type, amount);
     }
+
+    /**
+     * Returns encoded tile as a string.
+     * Province id + Tile type + (Resource type + Resource amount).
+     * It consists of 6B.
+     *
+     * @returns string
+     * */
+    public encode(): string {
+        return String().concat(this.provinceId, this.type, this.data);
+    }
 }

@@ -50,19 +50,10 @@ export default class GameMap implements IGameMap {
      * @param v {Vector2} refers to central chunk
      * */
     public moveTo(v: Vector2): void {
-        // Old and new chunk coords as strings
         const oldChunks = Array.from(this.chunks.keys());
-        const newChunks = [];
-
-        for (let y = 0; y < 3; y++) {
-            for (let x = 0; x < 3; x++) {
-                newChunks.push(`${this.coords.getX() + x}:${this.coords.getY() + y}`);
-            }
-        }
-
+        const newChunks = ["0:0", "0:1", "0:2", "1:0", "1:1", "1:2", "2:0", "2:1", "2:2"];
         const chunkCoords = new Set<string>([...oldChunks, ...newChunks ]);
 
-        // Iterate the set
         for (let el of chunkCoords) {
             // There is no a such chunk, so generate it
             if (!this.chunks.has(el)) {
@@ -104,6 +95,7 @@ export default class GameMap implements IGameMap {
 
     /**
      * Converts data string to the MapChunk instance.
+     *
      * @param data refers to string variable fetched from the database.
      * @return chunk
      * */
@@ -118,11 +110,10 @@ export default class GameMap implements IGameMap {
             for (let x = 0; x < MapChunk.SIZE; x++) {
                 const el = y * 16 + x;
                 const provinceId = data.at(el)!;
-                const tileData = data.at(el + 1)!;
-                // FIXME: The same type as the resource type of tile.
-                const tileType = String.fromCharCode(tileData.charCodeAt(0) & 0xFF00);
+                const tileType = data.at(el + 1)!;
+                const resourceData = data.at(el + 2)!;
 
-                tiles[y].push(new MapTile(tileType, provinceId, tileData));
+                tiles[y].push(new MapTile(tileType, provinceId, resourceData));
             }
         }
 
@@ -134,24 +125,18 @@ export default class GameMap implements IGameMap {
 
     /**
      * Converts chunk to the string data.
+     *
      * @param chunk refers to the chunk that will be proceeded.
      * @returns data
      * */
     public encode(chunk: MapChunk): string {
-        let data: string = "";
         let tilesData: string[] = [];
         let vectorData: string[] = [];
 
         for (let y = 0; y < MapChunk.SIZE; y++) {
             for (let x = 0; x < MapChunk.SIZE; x++) {
                 const tile = chunk.getTile(new Vector2(x, y));
-                // FIXME: Refactor a below line.
-                const resourceData =
-                    (getMapTileResource(tile.getResource().getType()).key.charCodeAt(0) << 0x8) +
-                    tile.getResource().getAmount();
-                const tileData = tile.getProvinceId() + String.fromCharCode(resourceData);
-
-                tilesData.push(tileData);
+                tilesData.push(tile.encode());
             }
         }
 
@@ -160,7 +145,7 @@ export default class GameMap implements IGameMap {
             String.fromCharCode(chunk.getCoordinates().getY())
         );
 
-        return data.concat(...tilesData, ...vectorData);
+        return String().concat(...tilesData, ...vectorData);
     }
 
 }
