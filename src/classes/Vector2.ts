@@ -7,7 +7,7 @@
 export default class Vector2 {
     private coords: string;
 
-    public static readonly SIZE = 4;
+    public static readonly SIZE = 2;
     
     constructor(private readonly x: number, private readonly y: number) {
         this.coords = String.fromCodePoint(x) + String.fromCodePoint(y);

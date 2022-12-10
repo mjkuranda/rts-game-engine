@@ -3,7 +3,7 @@ import MapTile from "./map/MapTile";
 import MapChunk from "./map/MapChunk";
 import ChunkNotFoundError from "./errors/map/ChunkNotFoundError";
 import InvalidChunkDataError from "./errors/map/InvalidChunkDataError";
-import {getMapTileResource} from "./GameGlobalConfig";
+import InvalidTileDataError from "./errors/map/InvalidTileDataError";
 
 interface IGameMap {
     getChunk(v: Vector2): MapChunk;
@@ -12,6 +12,7 @@ interface IGameMap {
     moveTo(v: Vector2): void;
     decode(data: string): MapChunk;
     encode(chunk: MapChunk): string;
+    decodeTile(data: string): MapTile;
 }
 
 export default class GameMap implements IGameMap {
@@ -107,13 +108,13 @@ export default class GameMap implements IGameMap {
         let tiles: MapTile[][] = [];
 
         for (let y = 0; y < MapChunk.SIZE; y++) {
+            tiles[y] = [];
+
             for (let x = 0; x < MapChunk.SIZE; x++) {
                 const el = y * 16 + x;
-                const provinceId = data.at(el)!;
-                const tileType = data.at(el + 1)!;
-                const resourceData = data.at(el + 2)!;
+                const tile = this.decodeTile(data.substring(el, el + 3));
 
-                tiles[y].push(new MapTile(tileType, provinceId, resourceData));
+                tiles[y].push(tile);
             }
         }
 
@@ -146,6 +147,24 @@ export default class GameMap implements IGameMap {
         );
 
         return String().concat(...tilesData, ...vectorData);
+    }
+
+    /**
+     * Returns a tile.
+     *
+     * @param data
+     * @returns MapTile
+     * */
+    public decodeTile(data: string): MapTile {
+        if (data.length != 3) {
+            throw new InvalidTileDataError();
+        }
+
+        const provinceId = data.at(0)!;
+        const tileType = data.at(1)!;
+        const resourceData = data.at(2)!;
+
+        return new MapTile(tileType, provinceId, resourceData);
     }
 
 }

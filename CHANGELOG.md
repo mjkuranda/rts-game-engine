@@ -1,6 +1,9 @@
 # RTS Game Engine
 
 ## [1.10.0] 2022-12-10
+### Added
+- [@mjkuranda]: Basic tests for GameMap.
+
 ### Improved
 - [@mjkuranda]: Encoding and decoding chunks and tiles.
 
