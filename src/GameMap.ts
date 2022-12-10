@@ -4,6 +4,7 @@ import MapChunk from "./map/MapChunk";
 import ChunkNotFoundError from "./errors/map/ChunkNotFoundError";
 import InvalidChunkDataError from "./errors/map/InvalidChunkDataError";
 import InvalidTileDataError from "./errors/map/InvalidTileDataError";
+import Database, {MapChunkData} from "./databases/Database";
 
 interface IGameMap {
     getChunk(v: Vector2): MapChunk;
@@ -22,9 +23,13 @@ export default class GameMap implements IGameMap {
     // First chunk coords
     private coords: Vector2;
 
-    constructor(coords: Vector2) {
+    // Database reference
+    private db: Database;
+
+    constructor(db: Database, coords: Vector2) {
         this.chunks = new Map<string, MapChunk>();
         this.coords = coords;
+        this.db = db;
     }
 
     public getChunk(v: Vector2): MapChunk {
@@ -58,27 +63,17 @@ export default class GameMap implements IGameMap {
         for (let el of chunkCoords) {
             // There is no a such chunk, so generate it
             if (!this.chunks.has(el)) {
-                // FIXME: data from the database and decoding tiles
-                const tiles = [
-                    [
-                        new MapTile("Unknown", "X", "X"),
-                        new MapTile("Unknown", "X", "X"),
-                        new MapTile("Unknown", "X", "X"),
-                    ],
-                    [
-                        new MapTile("Unknown", "X", "X"),
-                        new MapTile("Unknown", "X", "X"),
-                        new MapTile("Unknown", "X", "X"),
-                    ],
-                    [
-                        new MapTile("Unknown", "X", "X"),
-                        new MapTile("Unknown", "X", "X"),
-                        new MapTile("Unknown", "X", "X"),
-                    ]
-                ]; // Data
-                const [x, y] = el.split(":").map(c => Number(c));
+                try {
+                    const chunkData = this.db.getChunk(v);
+                    const chunk = this.decode(chunkData.object as MapChunkData);
 
-                this.chunks.set(el, new MapChunk(tiles, new Vector2(x, y)));
+                    this.chunks.set(el, chunk);
+                }
+                catch (err) {
+                    if (err instanceof ChunkNotFoundError) {
+                        console.error(err.message);
+                    }
+                }
 
                 continue;
             }

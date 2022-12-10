@@ -3,9 +3,9 @@ import City from "../classes/City";
 import Human from "../classes/entities/Human";
 import Vector2 from "../classes/Vector2";
 import GameConfig, { TableType } from "../GameConfig";
-import Database, { DatabaseResult } from "./Database";
+import Database, { DatabaseResult, MapChunkData } from "./Database";
 import DatabaseObjectNotFoundError from "../errors/DatabaseObjectNotFoundError";
-import MapChunk from "../map/MapChunk";
+import ChunkNotFoundError from "../errors/map/ChunkNotFoundError";
 
 export default class InMemoryDatabase extends Database {
     /* Key: `String.fromCharCode(size)`, value: Human object */
@@ -18,7 +18,7 @@ export default class InMemoryDatabase extends Database {
     private agents: Map<string, Agent>;
 
     /* Key: `x:y`, value: MapChunk array */
-    private chunks: Map<string, MapChunk>;
+    private chunks: Map<string, MapChunkData>;
 
     /* Two-dimensional array */
     private provinces: number[][];
@@ -105,6 +105,22 @@ export default class InMemoryDatabase extends Database {
         }
 
         console.error("Error: Invalid object type.");
+    }
+
+    public getChunk(v: Vector2): DatabaseResult {
+        const key = `${v.getX()}:${v.getY()}`;
+
+        if (!this.chunks.has(key)) {
+            throw new ChunkNotFoundError(v.getX(), v.getY());
+        }
+
+        return new DatabaseResult(this.chunks.get(key)!);
+    }
+
+    public updateChunk(v: Vector2, chunkData: MapChunkData): void {
+        const key = `${v.getX()}:${v.getY()}`;
+
+        this.chunks.set(key, chunkData);
     }
 
     public status(): void {

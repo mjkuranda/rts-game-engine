@@ -15,7 +15,7 @@ import Agent, { AgentId, AgentType, AgentTypes } from "./classes/Agent";
 import Vector2 from "./classes/Vector2";
 import Province, { ProvinceId } from "./classes/Province";
 
-import Database, { DatabaseResult } from "./databases/Database";
+import Database, { DatabaseResult, MapChunkData } from "./databases/Database";
 import InMemoryDatabase from "./databases/InMemoryDatabase";
 
 export {
@@ -40,6 +40,6 @@ export {
 
     // Databases
     Database,
-    DatabaseResult,
+    DatabaseResult, MapChunkData,
     InMemoryDatabase
 };

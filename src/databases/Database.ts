@@ -4,7 +4,9 @@ import City from "../classes/City";
 import Human from "../classes/entities/Human";
 import Agent from "../classes/Agent";
 
-type DatabaseResultType = City | Human | Agent;
+export type MapChunkData = string;
+
+type DatabaseResultType = City | Human | Agent | MapChunkData;
 
 interface IDatabaseResult {
     object: DatabaseResultType;
@@ -23,6 +25,9 @@ interface IDatabase {
     get(id: string, type: TableType): DatabaseResult;
     delete(id: string, type: TableType): void;
     update<T>(id: string, object: T): void;
+
+    getChunk(v: Vector2): DatabaseResult;
+    updateChunk(v: Vector2, chunk: MapChunkData): void;
     
     getConfig(): GameConfig;
     status(): void;
@@ -46,6 +51,16 @@ export default abstract class Database implements IDatabase {
     public getConfig(): GameConfig {
         return this.config;
     }
+
+    /**
+     * Returns Database result containing chunk data as a string.
+     *
+     * @param v Chunk coordinates
+     * @returns DatabaseResult
+     * */
+    abstract getChunk(v: Vector2): DatabaseResult;
+
+    abstract updateChunk(v: Vector2, chunk: MapChunkData): void;
     
     /* Super method occurring in all database classes */
     public generateNextKey(key: string): string {

@@ -3,6 +3,7 @@
 ## [1.10.0] 2022-12-10
 ### Added
 - [@mjkuranda]: Basic tests for GameMap.
+- [@mjkuranda]: Transfer chunk data between client and database.
 
 ### Improved
 - [@mjkuranda]: Encoding and decoding chunks and tiles.
