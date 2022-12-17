@@ -1,5 +1,19 @@
 # RTS Game Engine
 
+## [2.0.0] 2022-12-17
+### Added
+- [@mjkuranda]: GameObject type. Could be converted.
+- [@mjkuranda]: Converters classes. Encodes and decodes every GameObject.
+- [@mjkuranda]: Embedded types of GameObject.
+
+### Changed
+- [@mjkuranda]: Since now ChunkConverter decodes and encodes the chunks.
+- [@mjkuranda]: The project structure a bit.
+- [@mjkuranda]: Some directories and classes to deprecated and unused.
+
+### Improved
+- [@mjkuranda]: Database interface. Every method uses a GameObject.
+
 ## [1.10.0] 2022-12-10
 ### Added
 - [@mjkuranda]: Basic tests for GameMap.
