@@ -1,4 +1,5 @@
 import GameObject from "../../GameObject";
+import MarriageFailedError from "../../../errors/MarriageFailedError";
 
 export type HumanId = string;
 
@@ -86,9 +87,7 @@ export default class Human extends GameObject {
 
     public marriage(spouseId: string, spouse: Human | null): void {
         if (!spouse) {
-            console.error('Error: There is no such human.');
-
-            return;
+            throw new MarriageFailedError("There is no such human.");
         }
 
         this.spouseId = spouseId;
