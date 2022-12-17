@@ -1,4 +1,4 @@
-import Database, {IDatabaseQuery} from "./Database";
+import Database, { IDatabaseQuery } from "./Database";
 import GameObject from "../entities/GameObject";
 
 export default class InMemoryDatabase extends Database {

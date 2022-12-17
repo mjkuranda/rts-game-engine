@@ -1,5 +1,7 @@
 dist
 node_modules
 index.ts
+src/classes/
+src/databases/old/
 src/entities/GameObjectFactory.ts
-src/entities/embedded
+src/errors/MarriageFailedError.ts

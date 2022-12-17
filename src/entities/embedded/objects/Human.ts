@@ -1,4 +1,4 @@
-import { people } from '../../GameData';
+import GameObject from "../../GameObject";
 
 export type HumanId = string;
 
@@ -18,7 +18,7 @@ export enum Skills {
 
 interface Skill {
     offset: number;
-    mask: number;   
+    mask: number;
 };
 
 const SkillsDetails: Record<string, Skill> = {
@@ -36,23 +36,25 @@ const SkillsDetails: Record<string, Skill> = {
     spouseId: 2B
     skills: 2B
 */
-export default class Human {
+export default class Human extends GameObject {
     // Human id
     private id: HumanId;
 
     // Human spouse id
     private spouseId: SpouseId | null;
-    
+
     // Gender (true - male, false - female)
     private readonly gender: boolean;
-    
+
     private skills: string;
-    
+
     constructor(
         private readonly name: string,
         private readonly age?: number,
         isMale?: boolean,
         peopleSize?: number) {
+        super();
+
         this.name = name.slice(0, 16);
         this.age = age ?? 0;
         this.gender = isMale ?? true;
@@ -60,7 +62,7 @@ export default class Human {
         this.skills = '\x00'; // 0
         this.id = String.fromCodePoint(peopleSize ?? Math.floor(Math.random() * 100000));
     }
-    
+
     public getName(): string {
         return this.name;
     }
@@ -69,41 +71,41 @@ export default class Human {
     public getAge(year: number): number {
         return year - this.age!;
     }
-    
+
     public getGender(): string {
         return (this.gender) ? Gender.MALE : Gender.FEMALE;
     }
-    
+
     public isMale(): boolean {
         return this.gender;
     }
-    
+
     public getSpouseId(): SpouseId | null {
         return this.spouseId;
     }
-    
-    public marriage(humanId: string): void {
-        if (!people.get(humanId)) {
+
+    public marriage(spouseId: string, spouse: Human | null): void {
+        if (!spouse) {
             console.error('Error: There is no such human.');
-            
+
             return;
         }
-        
-        this.spouseId = humanId;
+
+        this.spouseId = spouseId;
     }
-    
+
     public dissolveMarriage(): void {
         this.spouseId = null;
     }
-    
+
     // TODO: Try not to overflow it! Maximal amount of skill is 15.
-    public gainSkill(skill: Skills, amount: number): void {        
+    public gainSkill(skill: Skills, amount: number): void {
         const skillDetail = SkillsDetails[skill];
-        
+
         const skillsNumeric = this.skills.charCodeAt(0) + (amount << skillDetail.offset);
         this.skills = String.fromCharCode(skillsNumeric);
     }
-    
+
     public logSkills(): void {
         const skills = {
             [Skills.FIGHTING]: this.getSkill(Skills.FIGHTING),
@@ -111,15 +113,19 @@ export default class Human {
             [Skills.ENGINEERING]: this.getSkill(Skills.ENGINEERING),
             [Skills.SCIENCE]: this.getSkill(Skills.SCIENCE)
         };
-        
+
         console.table(skills);
     }
-    
+
     public getSkill(skill: Skills): number {
         return (this.skills.charCodeAt(0) & SkillsDetails[skill].mask) >> SkillsDetails[skill].offset;
     }
 
     public getId(): HumanId {
         return this.id;
+    }
+
+    public toString(): string {
+        return `Human object. ${this.getName()}, ${this.getAge(0)} years old. ${this.spouseId ? "Spouse" : "No marriage"}`;
     }
 }
