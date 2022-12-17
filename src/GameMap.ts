@@ -1,19 +1,20 @@
 import Vector2 from "./classes/Vector2";
-import MapTile from "./map/MapTile";
-import MapChunk from "./map/MapChunk";
+import MapTile from "./entities/embedded/objects/map/MapTile";
+import MapChunk from "./entities/embedded/objects/map/MapChunk";
 import ChunkNotFoundError from "./errors/map/ChunkNotFoundError";
-import InvalidChunkDataError from "./errors/map/InvalidChunkDataError";
-import InvalidTileDataError from "./errors/map/InvalidTileDataError";
-import DatabaseOld, {MapChunkData} from "./databases/old/DatabaseOld";
+// import InvalidChunkDataError from "./errors/map/InvalidChunkDataError";
+// import InvalidTileDataError from "./errors/map/InvalidTileDataError";
+import Database, {MapChunkData} from "./databases/Database";
+import ChunkConverter from "./entities/embedded/converters/ChunkConverter";
 
 interface IGameMap {
     getChunk(v: Vector2): MapChunk;
     getChunks(): Map<string, MapChunk>;
     getTile(v: Vector2): MapTile;
     moveTo(v: Vector2): void;
-    decode(data: string): MapChunk;
-    encode(chunk: MapChunk): string;
-    decodeTile(data: string): MapTile;
+    // decode(data: string): MapChunk;
+    // encode(chunk: MapChunk): string;
+    // decodeTile(data: string): MapTile;
 }
 
 export default class GameMap implements IGameMap {
@@ -24,9 +25,9 @@ export default class GameMap implements IGameMap {
     private coords: Vector2;
 
     // Database reference
-    private db: DatabaseOld;
+    private db: Database;
 
-    constructor(db: DatabaseOld, coords: Vector2) {
+    constructor(db: Database, coords: Vector2) {
         this.chunks = new Map<string, MapChunk>();
         this.coords = coords;
         this.db = db;
@@ -55,7 +56,7 @@ export default class GameMap implements IGameMap {
     /**
      * @param v {Vector2} refers to central chunk
      * */
-    public moveTo(v: Vector2): void {
+    public async moveTo(v: Vector2): Promise<void> {
         const oldChunks = Array.from(this.chunks.keys());
         const newChunks = this.generateNewCoords(v);
         const chunkCoords = new Set<string>([...oldChunks, ...newChunks ]);
@@ -64,8 +65,9 @@ export default class GameMap implements IGameMap {
             // There is no a such chunk, so generate it
             if (!this.chunks.has(el)) {
                 try {
-                    const chunkData = this.db.getChunk(v);
-                    const chunk = this.decode(chunkData.object as MapChunkData);
+                    const coordsKey = `${v.getX()}:${v.getY()}`;
+                    const chunk = await this.db.get<MapChunk>({ key: coordsKey, table: "chunks", converter: new ChunkConverter() });
+                    // const chunk = this.decode(chunkData.object as MapChunkData);
 
                     this.chunks.set(el, chunk);
                 }
@@ -89,78 +91,78 @@ export default class GameMap implements IGameMap {
         this.coords = this.generateNewCentralCoords(v);
     }
 
-    /**
-     * Converts data string to the MapChunk instance.
-     *
-     * @param data refers to string variable fetched from the database.
-     * @return chunk
-     * */
-    public decode(data: string): MapChunk {
-        if (data.length != MapChunk.DATA_STRING_SIZE) {
-            throw new InvalidChunkDataError();
-        }
-
-        let tiles: MapTile[][] = [];
-
-        for (let y = 0; y < MapChunk.SIZE; y++) {
-            tiles[y] = [];
-
-            for (let x = 0; x < MapChunk.SIZE; x++) {
-                const el = y * 16 + x;
-                const tile = this.decodeTile(data.substring(el, el + 3));
-
-                tiles[y].push(tile);
-            }
-        }
-
-        const x = data.charCodeAt(MapChunk.DATA_STRING_SIZE - 2);
-        const y = data.charCodeAt(MapChunk.DATA_STRING_SIZE - 1);
-
-        return new MapChunk(tiles, new Vector2(x, y));
-    }
-
-    /**
-     * Converts chunk to the string data.
-     *
-     * @param chunk refers to the chunk that will be proceeded.
-     * @returns data
-     * */
-    public encode(chunk: MapChunk): string {
-        let tilesData: string[] = [];
-        let vectorData: string[] = [];
-
-        for (let y = 0; y < MapChunk.SIZE; y++) {
-            for (let x = 0; x < MapChunk.SIZE; x++) {
-                const tile = chunk.getTile(new Vector2(x, y));
-                tilesData.push(tile.encode());
-            }
-        }
-
-        tilesData.push(
-            String.fromCharCode(chunk.getCoordinates().getX()),
-            String.fromCharCode(chunk.getCoordinates().getY())
-        );
-
-        return String().concat(...tilesData, ...vectorData);
-    }
-
-    /**
-     * Returns a tile.
-     *
-     * @param data
-     * @returns MapTile
-     * */
-    public decodeTile(data: string): MapTile {
-        if (data.length != 3) {
-            throw new InvalidTileDataError();
-        }
-
-        const provinceId = data.at(0)!;
-        const tileType = data.at(1)!;
-        const resourceData = data.at(2)!;
-
-        return new MapTile(tileType, provinceId, resourceData);
-    }
+    // /**
+    //  * Converts data string to the MapChunk instance.
+    //  *
+    //  * @param data refers to string variable fetched from the database.
+    //  * @return chunk
+    //  * */
+    // public decode(data: string): MapChunk {
+    //     if (data.length != MapChunk.DATA_STRING_SIZE) {
+    //         throw new InvalidChunkDataError();
+    //     }
+    //
+    //     let tiles: MapTile[][] = [];
+    //
+    //     for (let y = 0; y < MapChunk.SIZE; y++) {
+    //         tiles[y] = [];
+    //
+    //         for (let x = 0; x < MapChunk.SIZE; x++) {
+    //             const el = y * 16 + x;
+    //             const tile = this.decodeTile(data.substring(el, el + 3));
+    //
+    //             tiles[y].push(tile);
+    //         }
+    //     }
+    //
+    //     const x = data.charCodeAt(MapChunk.DATA_STRING_SIZE - 2);
+    //     const y = data.charCodeAt(MapChunk.DATA_STRING_SIZE - 1);
+    //
+    //     return new MapChunk(tiles, new Vector2(x, y));
+    // }
+    //
+    // /**
+    //  * Converts chunk to the string data.
+    //  *
+    //  * @param chunk refers to the chunk that will be proceeded.
+    //  * @returns data
+    //  * */
+    // public encode(chunk: MapChunk): string {
+    //     let tilesData: string[] = [];
+    //     let vectorData: string[] = [];
+    //
+    //     for (let y = 0; y < MapChunk.SIZE; y++) {
+    //         for (let x = 0; x < MapChunk.SIZE; x++) {
+    //             const tile = chunk.getTile(new Vector2(x, y));
+    //             tilesData.push(tile.encode());
+    //         }
+    //     }
+    //
+    //     tilesData.push(
+    //         String.fromCharCode(chunk.getCoordinates().getX()),
+    //         String.fromCharCode(chunk.getCoordinates().getY())
+    //     );
+    //
+    //     return String().concat(...tilesData, ...vectorData);
+    // }
+    //
+    // /**
+    //  * Returns a tile.
+    //  *
+    //  * @param data
+    //  * @returns MapTile
+    //  * */
+    // public decodeTile(data: string): MapTile {
+    //     if (data.length != 3) {
+    //         throw new InvalidTileDataError();
+    //     }
+    //
+    //     const provinceId = data.at(0)!;
+    //     const tileType = data.at(1)!;
+    //     const resourceData = data.at(2)!;
+    //
+    //     return new MapTile(tileType, provinceId, resourceData);
+    // }
 
     /**
      * Generates new coordinates.

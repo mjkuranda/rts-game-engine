@@ -7,7 +7,8 @@
         "test": "npx jest",
         "start": "node dist/index.js",
         "compile": "npx tsc",
-        "daemon": "nodemon index.ts"
+        "daemon": "nodemon index.ts",
+        "build": "npm run compile && npm run test"
     },
     "author": "mjkuranda",
     "license": "ISC",

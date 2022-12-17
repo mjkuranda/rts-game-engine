@@ -1,8 +1,8 @@
 import Game from "./Game";
 import GameConfig, { TableType } from "./GameConfig";
 import GameMap from "./GameMap";
-import MapChunk from "./map/MapChunk";
-import MapTile, { MapTileType } from "./map/MapTile";
+import MapChunk from "./entities/embedded/objects/map/MapChunk";
+import MapTile, { MapTileType } from "./entities/embedded/objects/map/MapTile";
 import {
     setMapTileResource, getMapTileResource, resetMapTileResource,
     setMapTileType, getMapTileType, resetMapTileType

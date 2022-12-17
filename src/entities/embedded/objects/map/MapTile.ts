@@ -1,6 +1,6 @@
-import { ProvinceId } from "../classes/Province";
+import { ProvinceId } from "../../../../classes/Province";
 import MapTileResource from "./MapTileResource";
-import { getMapTileResource } from "../GameGlobalConfig";
+import { getMapTileResource } from "../../../../GameGlobalConfig";
 
 export type MapTileType = string;
 

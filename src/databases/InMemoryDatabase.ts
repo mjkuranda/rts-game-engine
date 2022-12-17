@@ -10,11 +10,11 @@ export default class InMemoryDatabase extends Database {
         this.tables = tables;
     }
 
-    public get<GameObject>(query: IDatabaseQuery<GameObject, any>): GameObject {
+    public async get<GameObject>(query: IDatabaseQuery<GameObject, any>): Promise<GameObject> {
         const { key, table, converter } = query;
         const data = this.tables[table].get(key);
 
-        return converter.decode(data);
+        return Promise.resolve(converter.decode(data));
     }
 
 }

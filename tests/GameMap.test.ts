@@ -2,10 +2,18 @@ import GameMap from "../src/GameMap";
 import Vector2 from "../src/classes/Vector2";
 import { ProvinceId } from "../src/classes/Province";
 import { getMapTileResource } from "../src/GameGlobalConfig";
-import { MapTileType } from "../src/map/MapTile";
-import MapChunk from "../src/map/MapChunk";
+import { MapTileType } from "../src/entities/embedded/objects/map/MapTile";
+import MapChunk from "../src/entities/embedded/objects/map/MapChunk";
+// import InMemoryDatabase from "../src/databases/InMemoryDatabase";
+import ChunkConverter from "../src/entities/embedded/converters/ChunkConverter";
 
-const gameMap = new GameMap(new Vector2(1, 1));
+const tables = {
+    chunks: new Map<string, string>()
+};
+
+// const gameMap = new GameMap(new InMemoryDatabase(tables), new Vector2(1, 1));
+
+const chunkConverter = new ChunkConverter();
 
 describe('GameMap', () => {
     describe('Managing chunks', () => {
@@ -15,7 +23,7 @@ describe('GameMap', () => {
             const encodedChunk = generateEncodedChunk("XXX", 88, 88);
 
             // When
-            const chunk = gameMap.decode(encodedChunk);
+            const chunk = chunkConverter.decode(encodedChunk);
 
             // Then
             expect(chunk.getCoordinates().getX()).toBe(expectedCoords.getX());
@@ -34,7 +42,7 @@ describe('GameMap', () => {
             const expectedResourceAmount: number = "X".charCodeAt(0) & 0x00FF;
 
             // When
-            const tile = gameMap.decodeTile(encodedTile);
+            const tile = chunkConverter.decodeTile(encodedTile);
 
             // Then
             expect(tile.getProvinceId()).toBe(expectedProvinceId);
