@@ -1,5 +1,4 @@
 import Game from "./Game";
-import GameManager from "./GameManager";
 import GameConfig, { TableType } from "./GameConfig";
 import GameMap from "./GameMap";
 import MapChunk from "./map/MapChunk";
@@ -15,13 +14,12 @@ import Agent, { AgentId, AgentType, AgentTypes } from "./classes/Agent";
 import Vector2 from "./classes/Vector2";
 import Province, { ProvinceId } from "./classes/Province";
 
-import Database, { DatabaseResult, MapChunkData } from "./databases/Database";
-import InMemoryDatabase from "./databases/InMemoryDatabase";
+import DatabaseOld, { DatabaseResult, MapChunkData } from "./databases/old/DatabaseOld";
+import InMemoryDatabase from "./databases/old/InMemoryDatabase";
 
 export {
     // Main types
     Game,
-    GameManager,
     GameConfig, TableType,
     GameMap,
     MapChunk,
@@ -39,7 +37,7 @@ export {
     Province, ProvinceId,
 
     // Databases
-    Database,
+    DatabaseOld,
     DatabaseResult, MapChunkData,
     InMemoryDatabase
 };

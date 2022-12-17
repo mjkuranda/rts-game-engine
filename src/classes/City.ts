@@ -1,5 +1,4 @@
 import { people } from '../GameData';
-import GameManager from '../GameManager';
 
 /*
     Every instance of this object needs to assign about 150B.
@@ -14,13 +13,13 @@ export default class City {
         this.inhabitants = inhabitants; // TODO: Only 16 inhabitants!!!
     }
     
-    public nextAge(manager: GameManager, age: number): void {
+    public nextAge(age: number): void {
         // Manage inhabitants
         for (let humanId of this.inhabitants) {
             if (!people.get(humanId)?.getSpouseId()) continue;
             
             // Try to born a new inhabitant
-            this.inhabitants.push(manager.born('child', age).getGameObject()!.getId());
+            // this.inhabitants.push(manager.born('child', age).getGameObject()!.getId());
         }
         
         console.info(`${this.name} city was updated!`);

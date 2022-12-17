@@ -4,7 +4,7 @@ import MapChunk from "./map/MapChunk";
 import ChunkNotFoundError from "./errors/map/ChunkNotFoundError";
 import InvalidChunkDataError from "./errors/map/InvalidChunkDataError";
 import InvalidTileDataError from "./errors/map/InvalidTileDataError";
-import Database, {MapChunkData} from "./databases/Database";
+import DatabaseOld, {MapChunkData} from "./databases/old/DatabaseOld";
 
 interface IGameMap {
     getChunk(v: Vector2): MapChunk;
@@ -24,9 +24,9 @@ export default class GameMap implements IGameMap {
     private coords: Vector2;
 
     // Database reference
-    private db: Database;
+    private db: DatabaseOld;
 
-    constructor(db: Database, coords: Vector2) {
+    constructor(db: DatabaseOld, coords: Vector2) {
         this.chunks = new Map<string, MapChunk>();
         this.coords = coords;
         this.db = db;

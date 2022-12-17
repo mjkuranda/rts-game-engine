@@ -1,3 +1,9 @@
-export default abstract class GameObject {
-    protected constructor(private readonly table: string) {}
+interface IGameObject {
+    toString(): string;
+}
+
+export default abstract class GameObject implements IGameObject {
+    protected constructor() {}
+
+    abstract toString(): string;
 }
