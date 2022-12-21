@@ -4,12 +4,13 @@ import TableNotFoundError from "../errors/database/TableNotFound";
 import ObjectNotFoundError from "../errors/database/ObjectNotFoundError";
 import Game from "../Game";
 import InvalidQueryError from "../errors/database/InvalidQueryError";
+import GameConfig from "../GameConfig";
 
 export default class InMemoryDatabase extends Database {
-    private tables: Record<string, Map<string, GameObject>>;
+    private readonly tables: Record<string, Map<string, GameObject>>;
 
-    constructor(tables: Record<string, Map<string, GameObject>>) {
-        super();
+    constructor(config: GameConfig, tables: Record<string, Map<string, GameObject>>) {
+        super(config);
 
         this.tables = tables;
     }
@@ -31,7 +32,8 @@ export default class InMemoryDatabase extends Database {
     }
 
     public set<GameObjectClass extends GameObject>(query: IDatabaseQuery<GameObjectClass, any>): Promise<void> {
-        const { params: { key, table, object }, converter } = query;
+        const { params: { table, object }, converter } = query;
+        const key = this.getConfig().getLastKey('people', 'inMemory');
 
         if (this.tables[table]) {
             throw new TableNotFoundError(table);
@@ -43,6 +45,7 @@ export default class InMemoryDatabase extends Database {
 
         const data = converter.encode(object);
         this.tables[table].set(key, data);
+        this.getConfig().setNewKey(this.generateNextKey(key), 'people');
 
         return Promise.resolve();
     }

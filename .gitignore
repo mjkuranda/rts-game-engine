@@ -1,6 +1,4 @@
 dist
 node_modules
 index.ts
-src/classes/
-src/databases/old/
 src/entities/GameObjectFactory.ts

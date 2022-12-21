@@ -62,7 +62,7 @@ export default class GameMap implements IGameMap {
             if (!this.chunks.has(el)) {
                 try {
                     const coordsKey = `${v.getX()}:${v.getY()}`;
-                    const chunk = await this.db.get<MapChunk>({ key: coordsKey, table: "chunks", converter: converter });
+                    const chunk = await this.db.get<MapChunk>({ params: { key: coordsKey, table: "chunks" }, converter: converter });
 
                     this.chunks.set(el, chunk);
                 }

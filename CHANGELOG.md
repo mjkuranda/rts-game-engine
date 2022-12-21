@@ -8,6 +8,12 @@
 - [@mjkuranda]: Project files structure and main imports.
 - [@mjkuranda]: `get` InMemoryDatabase method.
 
+### Fixed
+- [@mjkuranda]: Modules errors after refactoring.
+
+### Removed
+- [@mjkuranda]: DatabaseOld directory and unnecessary code.
+
 ## [2.0.0] 2022-12-17
 ### Added
 - [@mjkuranda]: GameObject type. Could be converted.

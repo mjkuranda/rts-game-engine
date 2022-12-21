@@ -1,18 +1,18 @@
 import GameConfig from "./GameConfig";
-
-import DatabaseOld from "./databases/old/DatabaseOld";
-import InMemoryDatabase from "./databases/old/InMemoryDatabase";
+import Database from "./databases/Database";
+import InMemoryDatabase from "./databases/InMemoryDatabase";
+import GameObject from "./entities/GameObject";
 
 export default class Game {
     /* Configuration of the game */
     private config: GameConfig;
     
     /* Main database using in the game */
-    private database: DatabaseOld;
+    private database: Database;
     
-    constructor(config?: GameConfig, database?: DatabaseOld) {
+    constructor(config?: GameConfig, database?: Database, tables?: Record<string, Map<string, GameObject>>) {
         this.config = config ?? new GameConfig();
-        this.database = database ?? new InMemoryDatabase(this.config);
+        this.database = database ?? new InMemoryDatabase(this.config, tables ?? {});
     }
     
     public getConfig() {
@@ -23,11 +23,11 @@ export default class Game {
         return this.config.age;
     }
     
-    public switchDatabase(db: DatabaseOld) {
+    public switchDatabase(db: Database) {
         this.database = db;
     }
     
-    public getDatabase(): DatabaseOld {
+    public getDatabase(): Database {
         return this.database;
     }
     
@@ -38,6 +38,5 @@ export default class Game {
     
     public status(): void {
         console.info(`Game year ${this.config.age}, season ${this.config.age % 4}.`);
-        this.database.status();
     }
 }
