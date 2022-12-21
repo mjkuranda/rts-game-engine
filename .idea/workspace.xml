@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a8602d9a-4a9e-40ef-9d4f-dc6554dd6652" name="Changes" comment="Add backlog" />
+    <list default="true" id="a8602d9a-4a9e-40ef-9d4f-dc6554dd6652" name="Changes" comment="Add backlog">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,17 +37,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;P:/Projekty/rts-game-engine/src/errors/map&quot;,
-    &quot;nodejs.jest.jest_package&quot;: &quot;P:/Projekty/rts-game-engine/node_modules/jest&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;P:\\Programy\\IntelliJ IDEA 2022.2.1\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "P:/Projekty/rts-game-engine/src/errors/map",
+    "nodejs.jest.jest_package": "P:/Projekty/rts-game-engine/node_modules/jest",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "P:\\Projekty\\rts-game-engine\\node_modules\\typescript\\lib"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="P:\Projekty\rts-game-engine\src\errors\map" />
@@ -148,6 +151,7 @@
       <workItem from="1670080593020" duration="39154000" />
       <workItem from="1671222091783" duration="29330000" />
       <workItem from="1671627344041" duration="416000" />
+      <workItem from="1671627784532" duration="209000" />
     </task>
     <task id="LOCAL-00001" summary="Better initializing GameManager and Game instance">
       <created>1670082539192</created>
