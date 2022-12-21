@@ -1,8 +1,4 @@
-interface IGameObject {
-    toString(): string;
-}
-
-export default abstract class GameObject implements IGameObject {
+export default abstract class GameObject {
     protected constructor() {}
 
     abstract toString(): string;

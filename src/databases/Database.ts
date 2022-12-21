@@ -1,18 +1,16 @@
 import GameObjectConverter from "../entities/GameObjectConverter";
 import GameObject from "../entities/GameObject";
-import Vector2 from "../classes/Vector2";
-import GameConfig from "../GameConfig";
 
 export type MapChunkData = string;
 
-export interface IDatabaseQuery<GameObject, GameObjectStruct> {
+export interface IDatabaseQuery<GameObjectClass extends GameObject, GameObjectStruct> {
     key: string;
     table: string;
-    converter: GameObjectConverter<GameObject, GameObjectStruct>;
+    converter: GameObjectConverter<GameObjectClass, GameObjectStruct>;
 }
 
 export default abstract class Database {
-    abstract get<GameObject>(query: IDatabaseQuery<GameObject, any>): Promise<GameObject>;
+    abstract get<GameObjectClass extends GameObject>(query: IDatabaseQuery<GameObjectClass, any>): Promise<GameObjectClass>;
 }
 
 export class DatabaseResult {

@@ -1,17 +1,15 @@
 import GameMap from "../src/GameMap";
-import Vector2 from "../src/classes/Vector2";
-import { ProvinceId } from "../src/classes/Province";
 import { getMapTileResource } from "../src/GameGlobalConfig";
 import { MapTileType } from "../src/entities/embedded/objects/map/MapTile";
 import MapChunk from "../src/entities/embedded/objects/map/MapChunk";
-// import InMemoryDatabase from "../src/databases/InMemoryDatabase";
 import ChunkConverter from "../src/entities/embedded/converters/ChunkConverter";
+import Vector2 from "../src/entities/embedded/objects/Vector2";
+
+type ProvinceId = string;
 
 const tables = {
     chunks: new Map<string, string>()
 };
-
-// const gameMap = new GameMap(new InMemoryDatabase(tables), new Vector2(1, 1));
 
 const chunkConverter = new ChunkConverter();
 

@@ -2,7 +2,7 @@ type DatabaseType = "inMemory";
 
 interface IDatabaseConfig {
     name: string;
-    keys: { peopleLastKey: string, citiesLastKey: string, agentsLastKey: string }
+    keys: Record<string, string>;
 }
 
 interface IGameConfig {
@@ -11,11 +11,9 @@ interface IGameConfig {
     databases: {
         inMemory: IDatabaseConfig
     };
-    setNewKey: (key: string, table: TableType, database?: DatabaseType) => void;
-    getLastKey: (table: TableType, database?: DatabaseType) => string;
+    setNewKey: (key: string, table: string, database?: DatabaseType) => void;
+    getLastKey: (table: string, database?: DatabaseType) => string;
 }
-
-export type TableType = "people" | "cities" | "agents";
 
 /**
     GameConfig includes basic configuration,
@@ -46,11 +44,11 @@ export default class GameConfig implements IGameConfig {
         };
     }
     
-    public setNewKey(key: string, table: TableType, database?: DatabaseType): void {    
+    public setNewKey(key: string, table: string, database?: DatabaseType): void {
         this.databases[database ?? this.database].keys[`${table}LastKey`] = key;
     }
     
-    public getLastKey(table: TableType, database?: DatabaseType): string {
+    public getLastKey(table: string, database?: DatabaseType): string {
         return this.databases[database ?? this.database].keys[`${table}LastKey`];
     };
 };

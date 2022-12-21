@@ -1,5 +1,9 @@
 # RTS Game Engine
 
+## [2.1.0] 2022-12-21
+### Improved
+- [@mjkuranda]: Project files structure and main imports.
+
 ## [2.0.0] 2022-12-17
 ### Added
 - [@mjkuranda]: GameObject type. Could be converted.

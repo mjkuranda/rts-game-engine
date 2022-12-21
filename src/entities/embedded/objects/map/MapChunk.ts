@@ -1,6 +1,6 @@
 import MapTile from "./MapTile";
-import Vector2 from "../../../../classes/Vector2";
 import GameObject from "../../../GameObject";
+import Vector2 from "../Vector2";
 
 export default class MapChunk extends GameObject {
     public static readonly SIZE = 16;

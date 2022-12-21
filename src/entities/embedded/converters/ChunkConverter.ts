@@ -2,7 +2,7 @@ import GameObjectConverter from "../../GameObjectConverter";
 import MapChunk from "../objects/map/MapChunk";
 import InvalidChunkDataError from "../../../errors/map/InvalidChunkDataError";
 import MapTile from "../objects/map/MapTile";
-import Vector2 from "../../../classes/Vector2";
+import Vector2 from "../objects/Vector2";
 import InvalidTileDataError from "../../../errors/map/InvalidTileDataError";
 
 export default class ChunkConverter extends GameObjectConverter<MapChunk, string> {
@@ -84,7 +84,7 @@ export default class ChunkConverter extends GameObjectConverter<MapChunk, string
      *
      * @param v new coordinates (center point)
      * */
-    private generateNewCoords(v: Vector2): string[] {
+    public generateNewCoords(v: Vector2): string[] {
         const vx = (v.getX() % MapChunk.SIZE) - 1;
         const vy = (v.getY() % MapChunk.SIZE) - 1;
 
@@ -97,6 +97,19 @@ export default class ChunkConverter extends GameObjectConverter<MapChunk, string
         }
 
         return chunksCoords;
+    }
+
+    /**
+     * Generate new central coords for position
+     *
+     * @param v Clicked position
+     * @returns new chunk coordinates (Vector2)
+     * */
+    public generateNewCentralCoords(v: Vector2): Vector2 {
+        const vx = (v.getX() % MapChunk.SIZE) - 1;
+        const vy = (v.getY() % MapChunk.SIZE) - 1;
+
+        return new Vector2(vx, vy);
     }
 
 }

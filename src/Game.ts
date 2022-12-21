@@ -3,10 +3,6 @@ import GameConfig from "./GameConfig";
 import DatabaseOld from "./databases/old/DatabaseOld";
 import InMemoryDatabase from "./databases/old/InMemoryDatabase";
 
-// TODO: Printing game objects i. e.: Human, Agent, City...
-
-// TODO: Increase quality and amount of the tests
-
 export default class Game {
     /* Configuration of the game */
     private config: GameConfig;
