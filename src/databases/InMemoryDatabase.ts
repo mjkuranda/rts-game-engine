@@ -1,6 +1,6 @@
 import Database, { IDatabaseQuery } from "./Database";
 import GameObject from "../entities/GameObject";
-import TableNotFoundError from "../errors/database/TableNotFound";
+import TableNotFoundError from "../errors/database/TableNotFoundError";
 import ObjectNotFoundError from "../errors/database/ObjectNotFoundError";
 import Game from "../Game";
 import InvalidQueryError from "../errors/database/InvalidQueryError";

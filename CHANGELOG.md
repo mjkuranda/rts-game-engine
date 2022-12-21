@@ -3,6 +3,7 @@
 ## [2.1.0] 2022-12-21
 ### Added
 - [@mjkuranda]: `set` InMemoryDatabase method.
+- [@mjkuranda]: `Backlog` file to save ideas and what to do next.
 
 ### Improved
 - [@mjkuranda]: Project files structure and main imports.
