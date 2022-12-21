@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a8602d9a-4a9e-40ef-9d4f-dc6554dd6652" name="Changes" comment="Add backlog" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/GameMap.ts" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2I0UCM6CKhB9j3X1eQBavqqUAqJ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;P:/Projekty/rts-game-engine/src/errors/map&quot;,
+    &quot;nodejs.jest.jest_package&quot;: &quot;P:/Projekty/rts-game-engine/node_modules/jest&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;P:\\Programy\\IntelliJ IDEA 2022.2.1\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="P:\Projekty\rts-game-engine\src\errors\map" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="P:\Projekty\rts-game-engine\src\errors\database" />
+      <recent name="P:\Projekty\rts-game-engine\src\entities\embedded\objects" />
+      <recent name="P:\Projekty\rts-game-engine\src\entities\embedded\converters" />
+      <recent name="P:\Projekty\rts-game-engine\src\entities\embedded" />
+      <recent name="P:\Projekty\rts-game-engine\src\databases\old" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Jest.GameMap">
+    <configuration name="GameMap" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/tests/GameMap.test.ts" />
+      <test-names>
+        <test-name value="GameMap" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="GameMap.Managing chunks" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/tests/GameMap.test.ts" />
+      <test-names>
+        <test-name value="GameMap" />
+        <test-name value="Managing chunks" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="GameMap.Managing chunks.Should return decoded chunk" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/tests/GameMap.test.ts" />
+      <test-names>
+        <test-name value="GameMap" />
+        <test-name value="Managing chunks" />
+        <test-name value="Should return decoded chunk" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="GameMap.Managing tiles.Should decode a tile" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/tests/GameMap.test.ts" />
+      <test-names>
+        <test-name value="GameMap" />
+        <test-name value="Managing tiles" />
+        <test-name value="Should decode a tile" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="compile" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="compile" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.compile" />
+        <item itemvalue="Jest.GameMap.Managing tiles.Should decode a tile" />
+        <item itemvalue="Jest.GameMap.Managing chunks.Should return decoded chunk" />
+        <item itemvalue="Jest.GameMap.Managing chunks" />
+        <item itemvalue="Jest.GameMap" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a8602d9a-4a9e-40ef-9d4f-dc6554dd6652" name="Changes" comment="" />
+      <created>1669317865481</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1669317865481</updated>
+      <workItem from="1669317867181" duration="15756000" />
+      <workItem from="1669990908359" duration="595000" />
+      <workItem from="1670080593020" duration="39154000" />
+      <workItem from="1671222091783" duration="29330000" />
+      <workItem from="1671627344041" duration="416000" />
+    </task>
+    <task id="LOCAL-00001" summary="Better initializing GameManager and Game instance">
+      <created>1670082539192</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1670082539192</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add types file with all imports">
+      <created>1670083120125</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1670083120125</updated>
+    </task>
+    <task id="LOCAL-00003" summary="GainSkill include inside GameManager and include types file">
+      <created>1670084698390</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1670084698390</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Fix tests">
+      <created>1670085349828</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1670085349828</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Develop GameMap class">
+      <created>1670274016775</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1670274016775</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Implement the GameMap interface">
+      <created>1670423567228</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1670423567228</updated>
+    </task>
+    <task id="LOCAL-00007" summary="A one big and huge refactor">
+      <created>1671609681846</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1671609681846</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add set and get method">
+      <created>1671612551075</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1671612551075</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fix errors">
+      <created>1671618963062</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1671618963062</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add backlog">
+      <created>1671627154548</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1671627154548</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add new test" />
+    <MESSAGE value="Better initializing GameManager and Game instance" />
+    <MESSAGE value="Add types file with all imports" />
+    <MESSAGE value="GainSkill include inside GameManager and include types file" />
+    <MESSAGE value="Fix tests" />
+    <MESSAGE value="Develop GameMap class" />
+    <MESSAGE value="Implement the GameMap interface" />
+    <MESSAGE value="A one big and huge refactor" />
+    <MESSAGE value="Add set and get method" />
+    <MESSAGE value="Fix errors" />
+    <MESSAGE value="Add backlog" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add backlog" />
+  </component>
+</project>
