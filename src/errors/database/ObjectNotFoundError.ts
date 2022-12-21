@@ -1,4 +1,4 @@
-export default class DatabaseObjectNotFoundError extends Error {
+export default class ObjectNotFoundError extends Error {
     constructor(id: string, table: string) {
         const objId = id.charCodeAt(0);
         const objectType = table;

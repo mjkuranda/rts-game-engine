@@ -1,8 +1,12 @@
 # RTS Game Engine
 
 ## [2.1.0] 2022-12-21
+### Added
+- [@mjkuranda]: `set` InMemoryDatabase method.
+
 ### Improved
 - [@mjkuranda]: Project files structure and main imports.
+- [@mjkuranda]: `get` InMemoryDatabase method.
 
 ## [2.0.0] 2022-12-17
 ### Added
